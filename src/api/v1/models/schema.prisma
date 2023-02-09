@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  uuid      String @default(uuid()) @unique @id
+  name      String
+  email     String @unique
+  password  String
+  role      Role @default(USER)
+  cart      Cart[]
+  profile   Profile?
+  orderDetail   Order_Detail[]
+  orders    Orders[]
+
+}
+
+model Profile {
+  uuiid String @default(uuid()) @unique @id
+  phone String @unique
+  address String
+  user   User @relation(fields: [userId], references: [uuid])
+  userId String  @unique 
+}
+
+model Product {
+  uuid          String @default(uuid()) @unique @id
+  name          String  
+  stock         Int
+  image         String
+  desc          String
+  cloudId       String @unique
+  category      Category @relation(fields: [categoryId], references: [uuid])
+  categoryId    String
+  cart          Cart[]
+  orderDetail   Order_Detail[]
+}
+
+model Category {
+  uuid          String @default(uuid()) @unique @id
+  name          String @unique
+  product       Product[]
+}
+
+model Cart {
+  uuid          String @default(uuid()) @unique @id
+  cost          Int
+  quantity      Int @default(1)
+  product       Product @relation(fields: [productId], references: [uuid])
+  productId     String 
+  user          User @relation(fields: [userId], references: [uuid])
+  userId        String 
+}
+
+model Reviews {
+  uuid          String @default(uuid()) @unique @id
+  comment       String
+  productId     String
+}
+
+model Orders {
+  uuid          String @default(uuid()) @unique @id
+  userId        String 
+  user          User  @relation(fields: [userId], references: [uuid])
+  trackOrder    Track_Order?
+  address       String
+  totalCost     Int
+  time          DateTime @default(now())
+}
+
+model Order_Detail {
+  uuid          String @default(uuid()) @unique @id
+  productId     String 
+  product       Product  @relation(fields: [productId], references: [uuid])
+  userId        String 
+  user          User  @relation(fields: [userId], references: [uuid])
+  cost          Int
+  quantity      Int
+
+}
+
+model Track_Order {
+  uuid          String @default(uuid()) @unique @id
+  orderId       String @unique
+  order         Orders @relation(fields: [orderId], references: [uuid])
+  address       String
+  status        Status @default(PREPARING)
+}
+
+enum Role {
+  USER
+  ADMIN
+  EMPLOYEE
+}
+
+enum Status {
+  PREPARING
+  SHIPPED
+  DELIVERD
+}

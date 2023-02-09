@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.10.0",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.33.0",
     "config": "^3.3.9",
@@ -22,5 +23,11 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "redis": "^4.6.3"
+  },
+  "devDependencies": {
+    "prisma": "^4.10.0"
+  },
+  "prisma": {
+    "schema": "./src/api/v1/models/schema.prisma"
   }
 }

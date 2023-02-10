@@ -20,3 +20,17 @@ module.exports.getPasswordResetSecret = () => config.get('passwordResetSecret');
 module.exports.getCloudinaryName = () => config.get('cloudinaryName');
 module.exports.getCloudinaryAPIKey = () => config.get('cloudinaryAPIKey');
 module.exports.getCloudinaryAPISecret = () => config.get('cloudinaryAPISecret');
+
+// OAuth2
+module.exports.getOauth2ClientId = () => config.get('oauth2ClientId');
+module.exports.getOauth2ClientSecret = () => config.get('oauth2ClientSecret');
+module.exports.getOauth2RedirectUri = () => config.get('oauth2RedirectUri');
+module.exports.getOauth2RefreshToken = () => config.get('oauth2RefreshToken');
+
+// Nodemailer
+module.exports.getEmailSender = () => config.get('emailSender');
+module.exports.getSmtpHost = () => config.get('smtpHost');
+module.exports.getSmtpPort = () => config.get('smtpPort');
+module.exports.getNodemailerAuthType = () => config.get('nodemailerAuthType');
+
+

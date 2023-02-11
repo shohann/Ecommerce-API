@@ -15,7 +15,7 @@ model User {
   role      Role @default(USER)
   cart      Cart[]
   profile   Profile?
-  orderDetail   Order_Detail[]
+  orderDetail   order_Detail[]
   orders    Orders[]
 
 }
@@ -38,7 +38,7 @@ model Product {
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
   cart          Cart[]
-  orderDetail   Order_Detail[]
+  orderDetail   order_Detail[]
 }
 
 model Category {
@@ -67,13 +67,13 @@ model Orders {
   id          String @default(uuid()) @unique @id
   userId        String 
   user          User  @relation(fields: [userId], references: [id])
-  trackOrder    Track_Order?
+  trackOrder    track_Order?
   address       String
   totalCost     Int
   time          DateTime @default(now())
 }
 
-model Order_Detail {
+model order_Detail {
   id          String @default(uuid()) @unique @id
   productId     String 
   product       Product  @relation(fields: [productId], references: [id])
@@ -84,7 +84,7 @@ model Order_Detail {
 
 }
 
-model Track_Order {
+model track_Order {
   id          String @default(uuid()) @unique @id
   orderId       String @unique
   order         Orders @relation(fields: [orderId], references: [id])

@@ -9,12 +9,18 @@ module.exports.getPort = () => config.get('port');
 // Redis
 module.exports.getRedisHost = () => config.get('redisHost');
 module.exports.getRedisPort = () => config.get('redisPort');
+module.exports.getVerifyEmailEX = () => config.get('verifyEmailEX');
 
 // JWT
 module.exports.getAccessTokenSecret = () => config.get('accessTokenSecret');
 module.exports.getRefreshTokenSecret = () => config.get('refreshTokenSecret');
 module.exports.getVerificationSecret = () => config.get('verificationSecret');
 module.exports.getPasswordResetSecret = () => config.get('passwordResetSecret');
+
+module.exports.getAccessTokenTtl = () => config.get('accessTokenTtl');
+module.exports.getRefreshTokenTtl = () => config.get('refreshTokenTtl');
+module.exports.getVerificationTokenTtl = () => config.get('verificationTokenTtl');
+module.exports.getPasswordResetTokenTtl = () => config.get('passwordResetTokenTtl');
 
 // Cloudinary
 module.exports.getCloudinaryName = () => config.get('cloudinaryName');

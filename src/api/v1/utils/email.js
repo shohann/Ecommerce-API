@@ -41,7 +41,7 @@ module.exports.sendVerificationEmail = async (email, code) => {
         to: email,
         subject: "Verification Link",
         text: code,
-        html: `<h1>Hello the code is 72778 ${code}</h1>`
+        html: `<h1>${code}</h1>`
     
     };
 

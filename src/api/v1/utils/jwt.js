@@ -1,3 +1,8 @@
+// redis ttl and jwt ttl for verify -> describe
+// passwordResetSecret + oldPassword -> abr redis er ttl thakbe ki na
+
+// write -> refresh token ttl === refresh token redis key ttl, checking -> how?
+
 const { sign, verify } = require('jsonwebtoken');
 
 const { getAccessTokenSecret, 
@@ -19,25 +24,20 @@ const refreshTokenTtl = getRefreshTokenTtl();
 const verificationTokenTtl =  getVerificationTokenTtl();
 const passwordResetTokenTtl = getPasswordResetTokenTtl();
 
-// redis ttl and jwt ttl for verify -> describe
-// passwordResetSecret + oldPassword -> abr redis er ttl thakbe ki na
-
-module.exports.generateAccessToken = async (email, id, role) => {
+module.exports.generateAccessToken =  (email, id, role) => {
     const payload = { email: email, id: id, role: role };
     const secret = accessTokenSecret;
     const options = { expiresIn: accessTokenTtl };
     const token = sign(payload, secret, options);
-    // await client.set(email, token, { EX: 2000 });
     return token
     
 };
 
-module.exports.generateRefreshToken = async (email, id, role) => {
+module.exports.generateRefreshToken =  (email, id, role) => {
     const payload = { email: email, id: id, role: role };
     const secret = refreshTokenSecret;
     const options = { expiresIn: refreshTokenTtl};
     const token = sign(payload, secret, options);
-    // await client.set(email, token, { EX: 2000 });
     return token
 };
 
@@ -46,7 +46,7 @@ module.exports.generateVerificationToken = (email) => {
     const secret = verificationSecret;
     const options = { expiresIn: verificationTokenTtl };
     const token = sign(payload, secret, options);
-    // await client.set(email, token, { EX: 2000 });
+  
     return token
 }
 

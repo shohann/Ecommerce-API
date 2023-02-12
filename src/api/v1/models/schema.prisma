@@ -21,11 +21,17 @@ model User {
 }
 
 model Profile {
-  d String @default(uuid()) @unique @id
+  id String @default(uuid()) @unique @id
   phone String @unique
   address String
   user   User @relation(fields: [userId], references: [id])
   userId String  @unique 
+}
+
+model Category {
+  id          String @default(uuid()) @unique @id
+  categoryName          String @unique
+  product       Product[]
 }
 
 model Product {
@@ -41,11 +47,7 @@ model Product {
   orderDetail   order_Detail[]
 }
 
-model Category {
-  id          String @default(uuid()) @unique @id
-  name          String @unique
-  product       Product[]
-}
+
 
 model Cart {
   uuid          String @default(uuid()) @unique @id

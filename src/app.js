@@ -4,11 +4,15 @@ const port = require('./api/v1/utils/appConfigs').getPort();
 const { cacheClient } = require('./api/v1/cache/cacheDBInit')
 const { handleUnknownRoute, handleError } = require('./api/v1/middlewares/handleError');
 const userRouter = require('./api/v1/routes/userRoute');
+const profileRouter = require('./api/v1/routes/profileRoute');
+const categoryRouter = require('./api/v1/routes/categoryRoute')
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/v1/users', userRouter)
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/profiles', profileRouter);
+app.use('/api/v1/categories', categoryRouter);
 
 app.all('*', handleUnknownRoute);
 app.use(handleError);

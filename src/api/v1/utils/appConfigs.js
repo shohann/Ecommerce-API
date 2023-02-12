@@ -10,6 +10,7 @@ module.exports.getPort = () => config.get('port');
 module.exports.getRedisHost = () => config.get('redisHost');
 module.exports.getRedisPort = () => config.get('redisPort');
 module.exports.getVerifyEmailEX = () => config.get('verifyEmailEX');
+module.exports.getRefreshTokenCacheEX = () => config.get('refreshTokenCacheEX');
 
 // JWT
 module.exports.getAccessTokenSecret = () => config.get('accessTokenSecret');

@@ -7,10 +7,10 @@ router.route('/signup')
       .post(signUp);
 
 router.route('/verify/:token')
-      .get()
+      .get(verifyEmail)
 
 router.route('/resend')
-      .get()
+      .post(resendVerificationEmail)
 
 router.post('/login', logIn);
 

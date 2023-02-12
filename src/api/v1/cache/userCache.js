@@ -1,5 +1,5 @@
 const { cacheClient } = require('./cacheDBInit');
-const { getVerifyEmailEX } = require('../utils/appConfigs');
+const { getVerifyEmailEX, getRefreshTokenCacheEX } = require('../utils/appConfigs');
 
 // SignUp
 module.exports.setUserSignUpCache = async (email, user) => {
@@ -15,11 +15,13 @@ module.exports.deleteUserSignUpCache = async (email) => {
     await cacheClient.del(email);
 };
 
+// Refresh token
+module.exports.setUserRefreshToken = async (email, refreshToken) => {
+    const refreshTokenCacheEX = getRefreshTokenCacheEX()
+    await cacheClient.set(email, refreshToken, { EX: refreshTokenCacheEX });
+}
 
+// Forget password 
 
-//  refresh token
-
-// forget password 
-
-// update password
+// Update password
 

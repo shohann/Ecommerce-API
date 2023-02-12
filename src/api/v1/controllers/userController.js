@@ -52,7 +52,7 @@ module.exports.verifyEmail = async (req, res, next) => {
             throw new BadRequest('Invalid Token')
         }
 
-        await createUser(userCache.name, userCache.email, userCache.password);
+        const user = await createUser(userCache.name, userCache.email, userCache.password);
         await deleteUserSignUpCache(email);
 
         const accessToken = generateAccessToken(user.email, user.id, user.role);

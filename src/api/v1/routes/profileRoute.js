@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const { setProfile } = require('../controllers/profileController')
+const { setProfile } = require('../controllers/profileController');
+
+const { validateProfile } = require('../middlewares/validate');
 
 router.route('/')
-      .post(setProfile)
+      .post(validateProfile, setProfile)
 
 module.exports = router;

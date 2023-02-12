@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { setCategory } = require('../controllers/categoryController');
+const { validateCategory } = require('../middlewares/validate');
 
 router.route('/')
-      .post(setCategory)
+      .post(validateCategory, setCategory)
 //    .put()
 //    .delete()
 

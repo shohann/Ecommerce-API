@@ -73,3 +73,7 @@ module.exports.decodeVerificationToken = (verificationToken) => {
 module.exports.decodePasswordResetToken = (passwordResetToken) => {
     // this depends on old password dor verify
 }
+
+module.exports.getTokenFromTokenHeader = (tokenHeader) => {
+    return tokenHeader.split(" ")[1].trim();
+}

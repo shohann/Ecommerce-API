@@ -13,7 +13,7 @@ model User {
   email     String @unique
   password  String
   role      Role @default(USER)
-  cart      Cart[]
+  cart      Cart?
   profile   Profile?
   orderDetail   order_Detail[]
   orders    Orders[]
@@ -38,26 +38,39 @@ model Product {
   id          String @default(uuid()) @unique @id
   name          String  
   stock         Int
-  image         String
+  price         Int
+  image         String? // nullable - working
   desc          String
-  cloudId       String @unique
+  cloudId       String? // nullable - working
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
-  cart          Cart[]
+  cartItem      Cart_item[]
   orderDetail   order_Detail[]
 }
 
-
-
 model Cart {
-  uuid          String @default(uuid()) @unique @id
-  cost          Int
-  quantity      Int @default(1)
-  product       Product @relation(fields: [productId], references: [id])
-  productId     String 
-  user          User @relation(fields: [userId], references: [id])
-  userId        String 
+  id          String @default(uuid()) @unique @id
+  total       Int
+
+  user        User @relation(fields: [userId], references: [id])
+  userId      String @unique
+
+  CartItem    Cart_item[]
+
 }
+
+model Cart_item {
+  id          String @default(uuid()) @unique @id
+  quantity    Int
+  subTotal    Int
+
+  cart        Cart @relation(fields: [cartId], references: [id])
+  cartId      String
+
+  product     Product @relation(fields: [productId], references: [id])
+  productId   String
+}
+
 
 model Reviews {
   id          String @default(uuid()) @unique @id
@@ -93,6 +106,14 @@ model track_Order {
   address       String
   status        Status @default(PREPARING)
 }
+
+// model Payment_details {
+
+// }
+
+// model discounts {
+
+// }
 
 enum Role {
   USER

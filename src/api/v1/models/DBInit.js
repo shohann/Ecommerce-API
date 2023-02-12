@@ -4,5 +4,6 @@ const prisma = new PrismaClient;
 module.exports = {
     User: prisma.user,
     Profile: prisma.profile,
-    Category: prisma.category
+    Category: prisma.category,
+    Product: prisma.product
 };

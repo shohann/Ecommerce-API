@@ -1,6 +1,8 @@
 const { createUser, 
         fetchUserByEmail } = require('../services/userService');
 
+const { createCart } = require('../services/cartService');
+
 const { setUserSignUpCache, 
         getUserSignUpCache, 
         deleteUserSignUpCache, 
@@ -49,10 +51,11 @@ module.exports.verifyEmail = async (req, res, next) => {
         const userCache = await getUserSignUpCache(email);
 
         if (!email || email !== userCache.email) {
-            throw new BadRequest('Invalid Token')
+            throw new BadRequest('Invalid Token');
         }
 
         const user = await createUser(userCache.name, userCache.email, userCache.password);
+        await createCart(user.id);
         await deleteUserSignUpCache(email);
 
         const accessToken = generateAccessToken(user.email, user.id, user.role);

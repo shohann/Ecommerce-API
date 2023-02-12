@@ -50,7 +50,7 @@ model Product {
 
 model Cart {
   id          String @default(uuid()) @unique @id
-  total       Int
+  total       Int @default(0)
 
   user        User @relation(fields: [userId], references: [id])
   userId      String @unique
@@ -61,7 +61,7 @@ model Cart {
 
 model Cart_item {
   id          String @default(uuid()) @unique @id
-  quantity    Int
+  quantity    Int @default(1)
   subTotal    Int
 
   cart        Cart @relation(fields: [cartId], references: [id])

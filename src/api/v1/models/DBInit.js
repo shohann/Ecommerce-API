@@ -5,5 +5,7 @@ module.exports = {
     User: prisma.user,
     Profile: prisma.profile,
     Category: prisma.category,
-    Product: prisma.product
+    Product: prisma.product,
+    Cart: prisma.cart,
+    CartItem: prisma.cart_item
 };

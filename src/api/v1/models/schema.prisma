@@ -15,8 +15,8 @@ model User {
   role      Role @default(USER)
   cart      Cart?
   profile   Profile?
-  orderDetail   order_Detail[]
-  orders    Orders[]
+  orderDetail   Order_detail[]
+  orders    Order[]
 
 }
 
@@ -47,7 +47,7 @@ model Product {
   categoryId    String
   
   cartItem      Cart_item[]
-  orderDetail   order_Detail[]
+  orderDetail   Order_detail[]
 }
 
 model Cart {
@@ -57,7 +57,8 @@ model Cart {
   user        User @relation(fields: [userId], references: [id])
   userId      String @unique
 
-  CartItem    Cart_item[]
+  CartItem    Cart_item[] 
+  // lower case cartItem -> order controller
 
 }
 
@@ -65,6 +66,8 @@ model Cart_item {
   id          String @default(uuid()) @unique @id
   quantity    Int @default(1)
   subTotal    Int
+
+  // user id with relation
 
   cart        Cart @relation(fields: [cartId], references: [id])
   cartId      String
@@ -80,33 +83,48 @@ model Reviews {
   id          String @default(uuid()) @unique @id
   comment       String
   productId     String
+  // Relation with product
 }
 
-model Orders {
-  id          String @default(uuid()) @unique @id
+model Order {
+  id            String @default(uuid()) @unique @id
+
   userId        String 
   user          User  @relation(fields: [userId], references: [id])
-  trackOrder    track_Order?
+
+  orderDetail   Order_detail[]
+
+  trackOrder    Track_order?
+
   address       String
-  totalCost     Int
+
+  total         Int
+
   time          DateTime @default(now())
 }
 
-model order_Detail {
-  id          String @default(uuid()) @unique @id
+model Order_detail {
+  id            String @default(uuid()) @unique @id
+
+  orderId       String
+  order         Order @relation(fields: [orderId], references: [id])
+
   productId     String 
   product       Product  @relation(fields: [productId], references: [id])
+
   userId        String 
   user          User  @relation(fields: [userId], references: [id])
-  cost          Int
-  quantity      Int
 
+  subTotal      Int
+  quantity      Int
 }
 
-model track_Order {
+model Track_order {
   id          String @default(uuid()) @unique @id
+
   orderId       String @unique
-  order         Orders @relation(fields: [orderId], references: [id])
+  order         Order @relation(fields: [orderId], references: [id])
+
   address       String
   status        Status @default(PREPARING)
 }
@@ -116,7 +134,7 @@ model track_Order {
 // }
 
 // model discounts {
-
+// coupons
 // }
 
 enum Role {

@@ -16,6 +16,23 @@ module.exports.fetchCart = async (userId) => {
     });
 };
 
+module.exports.fetchCartWithItems = async (userId) => {
+    return await Cart.findUnique({
+        where: {
+            userId: userId
+        },
+        include: {
+            CartItem: {
+                select: {
+                    quantity: true,
+                    subTotal: true,
+                    productId: true
+                }
+            }
+        }
+    })
+}
+
 module.exports.fetchCartIdById = async (userId) => {
     return await Cart.findUnique({
         where: {
@@ -27,7 +44,8 @@ module.exports.fetchCartIdById = async (userId) => {
     });
 };
 
-// working
+
+
 module.exports.updateCartTotal = async (cartId, total) => {
     return await Cart.update({
         where: {

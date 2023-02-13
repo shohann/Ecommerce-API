@@ -7,5 +7,8 @@ module.exports = {
     Category: prisma.category,
     Product: prisma.product,
     Cart: prisma.cart,
-    CartItem: prisma.cart_item
+    CartItem: prisma.cart_item,
+    Order: prisma.order,
+    OrderDetail: prisma.order_detail,
+    TrackOrder: prisma.track_order
 };

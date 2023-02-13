@@ -9,3 +9,14 @@ module.exports.createProfile = async (userId, phone, address) => {
         }
     });
 };
+
+module.exports.fetchProfileAddress = async (userId) => {
+    return await Profile.findUnique({
+        where: {
+            userId: userId
+        },
+        select: {
+            address: true
+        }
+    });
+};

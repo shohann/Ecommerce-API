@@ -18,8 +18,10 @@ module.exports.authorizeAccess = (req, res, next) => {
             next(new BadRequest('Invalid Token'));
         } else if (error.name === 'TokenExpiredError') {
             next(new BadRequest('Token Expired'))
+        } else {
+            next(error);
         }
-        next(error)
+        
     }
 };
 

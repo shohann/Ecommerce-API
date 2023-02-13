@@ -42,8 +42,10 @@ model Product {
   image         String? // nullable - working
   desc          String
   cloudId       String? // nullable - working
+
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
+  
   cartItem      Cart_item[]
   orderDetail   order_Detail[]
 }

@@ -15,6 +15,8 @@ module.exports.setProduct = async (req, res, next) => {
     }
 };
 
+// get in stock products
+
 
 // 8f1eaff9-7008-446a-8f52-33e1c81db37f
 

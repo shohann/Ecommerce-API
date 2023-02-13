@@ -17,5 +17,8 @@ module.exports = {
     oauth2ClientId:'OAUTH2_CLIENT_ID',
     oauth2ClientSecret:'OAUTH2_CLIENT_SECRET',
     oauth2RedirectUri: 'OAUTH2_REDIRECT_URI',
-    oauth2RefreshToken:'OAUTH2_REFRESH_TOKEN'
+    oauth2RefreshToken:'OAUTH2_REFRESH_TOKEN',
+
+    // Stripe
+    stripeKey: 'STRIPE_KEY'
 };

@@ -2,28 +2,34 @@ const { createCartItem,
         deleteCartItem } = require('../services/cartItemService');
 const { fetchCartIdById } = require('../services/cartService');
 
-// stock issuse
-// if a user post 2 times -> duplicate
+// working
+const { updateCartTotal } = require('../services/cartService');
+
 module.exports.setCartItemToCart = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const productId = req.body.productId;
-        const price = req.body.price;
-        const quantity = req.body.quantity;
-        const subTotal = quantity * price;
-
+        const { productId } = req.params;
+        const subTotal = req.product.price;
 
         const cart = await fetchCartIdById(userId);
-        await createCartItem(cart.id, productId, quantity, subTotal);
+        await updateCartTotal(cart.id, subTotal)
+        const newCartItem = await createCartItem(cart.id, productId, subTotal);
+
+        console.log(newCartItem);
         
         res.status(201).json({
             success: true,
             message: 'Item added'
         });
     } catch (error) {
+        console.log(error);
         next(error)
     }
 };
+
+module.exports.getCartItems = async (req, res, next) => {
+
+}
 
 
 // not found error

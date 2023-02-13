@@ -1,45 +1,60 @@
-// Stock and alreaady availabe
-// fetch price
+const {  fetchCartItem, 
+         updateCartItemQuantity } = require('../services/cartItemService');
+const { fetchCartIdById } = require('../services/cartService');
 
-const {  fetchCartItem, updateCartItemQuantity } = require('../services/cartItemService')
-// product not found error
-// stock unavailablity
+const { fetchProductForCart } = require('../services/productService');
+
+const { updateCartTotal } = require('../services/cartService');
+
+const { BadRequest, NotFound } = require('../utils/appErrors');
 
 module.exports.checkCartItemAvailablity = async (req, res, next) => {
     try {
-        // this product can also have by other users cart,,should not use productId
-        // but we need product price
         const userId = req.user.id;
-        const productId = req.body.productId;
-        const price = req.body.price;
+        const { productId } = req.params;
 
-        const cartItem = await fetchCartItem(productId);
+        const cart = await fetchCartIdById(userId); 
+        const cartItem = await fetchCartItem(cart.id, productId);
 
         if (cartItem) {
             const cartItemId = cartItem.id;
-            const quantity = cartItem.quantity + 1;
-            const subTotal = quantity * price;
-
-            const newItem = await updateCartItemQuantity(cartItemId, quantity, subTotal);
-
-            console.log(newItem);
+            
+            await updateCartItemQuantity(cartItemId, cartItem.product.price);
+            await updateCartTotal(cart.id, cartItem.product.price)
+            
             return res.status(201).json({
                 success: true,
                 message: 'Item added'
             });
         }
+
+        req.cartId = cart.id;
         next();
     } catch (error) {
         next(error)
     }
-}
+};
 
-module.exports.checkStockAvailablity = async (req, res, next) => {
+// jdi confirm hoar age e keu nia fele then?
+// amr idea holo ekjon user cart a nile e stock decrement korbe, r order na kore remove kore abr increment korbe
+
+module.exports.checkProductAvailablity = async (req, res, next) => {
     try {
-        const { productId } = req.body;
-        // get price
+        const { productId } = req.params;
+        const product = await fetchProductForCart(productId);
         
+        if (!product) {
+            throw new NotFound('Product not available')
+        } 
+
+        if(product.stock === 0) {
+            throw BadRequest('Out of stock')
+        } 
+
+        req.product = product;
+
+        next();
     } catch (error) {
         next(error);
     }
-}
+};

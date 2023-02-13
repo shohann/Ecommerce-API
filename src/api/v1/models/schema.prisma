@@ -71,6 +71,8 @@ model Cart_item {
 
   product     Product @relation(fields: [productId], references: [id])
   productId   String
+
+  @@unique([cartId, productId])
 }
 
 

@@ -1,9 +1,8 @@
 const { CartItem } = require('../models/DBInit');
 
-module.exports.createCartItem = async (cartId, productId, quantity, subTotal) => {
+module.exports.createCartItem = async (cartId, productId, subTotal) => {
     return await CartItem.create({
         data: {
-            quantity: quantity,
             subTotal: subTotal,
             cartId: cartId,
             productId: productId,
@@ -11,22 +10,36 @@ module.exports.createCartItem = async (cartId, productId, quantity, subTotal) =>
     });
 };
 
-module.exports.fetchCartItem = async (productId) => {
-    return await CartItem.findFirst({
+module.exports.fetchCartItem = async (cartId, productId) => {
+    return await CartItem.findUnique({
         where: {
-            productId: productId
+            cartId_productId: {
+                cartId: cartId,
+                productId: productId
+            }
+        },
+        include: {
+            product: {
+                select: {
+                    price: true,
+                }
+            }
         }
     })
 };
 
-module.exports.updateCartItemQuantity = async (cartItemId, quantity, subTotal) => {
+module.exports.updateCartItemQuantity = async (cartItemId, price) => {
     return await CartItem.update({
         where: {
             id: cartItemId
         },
         data: {
-            quantity: quantity,
-            subTotal: subTotal
+            quantity: {
+                increment: 1
+            },
+            subTotal: {
+                increment: price
+            }
         }
     });
 };

@@ -40,4 +40,7 @@ module.exports.getSmtpHost = () => config.get('smtpHost');
 module.exports.getSmtpPort = () => config.get('smtpPort');
 module.exports.getNodemailerAuthType = () => config.get('nodemailerAuthType');
 
+// Stripe
+module.exports.getStripeKey = () => config.get('stripeKey');
+
 

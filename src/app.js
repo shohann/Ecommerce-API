@@ -11,6 +11,7 @@ const categoryRouter = require('./api/v1/routes/categoryRoute');
 const productRouter = require('./api/v1/routes/productRoute');
 const cartRouter = require('./api/v1/routes/cartRoute');
 const cartItemRouter = require('./api/v1/routes/cartItemRoute');
+const orderRouter = require('./api/v1/routes/orderRoute')
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +22,7 @@ app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/carts', cartRouter);
 app.use('/api/v1/cart-items', cartItemRouter);
+app.use('/api/v1/orders', orderRouter);
 
 app.all('*', handleUnknownRoute);
 app.use(handleError);

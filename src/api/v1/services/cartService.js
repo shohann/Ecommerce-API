@@ -26,3 +26,17 @@ module.exports.fetchCartIdById = async (userId) => {
         }
     });
 };
+
+// working
+module.exports.updateCartTotal = async (cartId, total) => {
+    return await Cart.update({
+        where: {
+            id: cartId
+        },
+        data: {
+            total: {
+                increment: total,
+            }
+        }
+    })
+}

@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const port = require('./api/v1/utils/appConfigs').getPort();
 
-const { cacheClient } = require('./api/v1/cache/cacheDBInit')
-const { handleUnknownRoute, 
-        handleError } = require('./api/v1/middlewares/handleError');
+const { cacheClient } = require('./api/v1/cache/cacheDBInit');
+const { 
+        handleUnknownRoute, 
+        handleError 
+      } = require('./api/v1/middlewares/handleError');
 
 const userRouter = require('./api/v1/routes/userRoute');
 const profileRouter = require('./api/v1/routes/profileRoute');
@@ -13,6 +15,7 @@ const productRouter = require('./api/v1/routes/productRoute');
 const cartRouter = require('./api/v1/routes/cartRoute');
 const orderRouter = require('./api/v1/routes/orderRoute');
 const paymentRouter = require('./api/v1/routes/paymentRoute');
+const reviewRouter = require('./api/v1/routes/reviewRoute');
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +27,7 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/carts', cartRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.all('*', handleUnknownRoute);
 app.use(handleError);

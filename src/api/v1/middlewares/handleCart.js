@@ -1,7 +1,8 @@
 const { fetchProductForCart } = require('../services/productService');
-
-const { findExistingProduct, createEmptyCart, fetchCartAndItems } = require('../services/cartService');
-
+const { findExistingProduct, 
+        createEmptyCart, 
+        fetchCartAndItems 
+      } = require('../services/cartService');
 const { NotFound } = require('../utils/appErrors');
 
 module.exports.checkCurrentUserCart = async (req, res, next) => {

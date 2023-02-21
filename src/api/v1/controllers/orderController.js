@@ -18,7 +18,6 @@ module.exports.setOrder = async (req, res, next) => {
             message: `Order has been placed successfully`
         })
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };

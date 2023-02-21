@@ -21,6 +21,18 @@ module.exports.fetchProductForCart = async (productId) => {
     });
 };
 
+// with review
+module.exports.fetchProductForReview = async (productId) => {
+    return await Product.findUnique({
+        where: {
+            id: productId
+        },
+        select: {
+            reviews: true
+        }
+    })
+}
+
 // for order rouute // items
 module.exports.updateProductStockForOrder =  async (item) => {
         const updatedProduct = await Product.update({

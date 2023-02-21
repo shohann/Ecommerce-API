@@ -22,3 +22,4 @@ router.post('/login', validateUserLogIn, logIn);
 
 module.exports = router;
 
+// router.route bad dite hobe

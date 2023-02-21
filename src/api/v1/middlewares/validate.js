@@ -1,7 +1,11 @@
-const { userSignUpValidation, 
-        userLogInValidation } = require('../validations/userValidation');
+const { 
+        userSignUpValidation, 
+        userLogInValidation 
+      } = require('../validations/userValidation');
 const { profileValidation } = require('../validations/profileValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
+const { reviewValidation } = require('../validations/reviewValidation')
+
 
 const { BadRequest } = require('../utils/appErrors');
 
@@ -80,3 +84,22 @@ module.exports.validateCategory = (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.validateReview = (req, res, next) => {
+    try {
+        const { comment, rating } = req.body;
+        const { error } = reviewValidation({
+            comment: comment,
+            rating: rating
+        })
+
+        if (error) {
+            const messages = error.details.map(error => error.message);
+            throw new BadRequest(messages);
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error)
+    }
+}

@@ -5,50 +5,21 @@ const { fetchCart,
         deleteCartItem,
         deleteCart
       } = require('../services/cartService');
-
-const { getCartCache, 
-        setCartCache 
-      } = require('../cache/cartCache');
-
-const { fetchProductForCart } = require('../services/productService');
-
 const { NotFound } = require('../utils/appErrors');
 
-// redis cache
+
+// baki
 module.exports.getCart = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const cartCache = await getCartCache(userId);
 
-        // const products = cartCache.CartItem.map((item) => {
-        //     return item.product.id
-        // });
 
-        // console.log(products);
+   
 
-        // const productDetails  = [];
-
-        // for (let i = 0; i < products.length; i++) {
-        //     productDetails.push(await fetchProductForCart(products[i]))
-        // }
-
-        // console.log(productDetails);
- 
-        if (cartCache) {
-            return res.status(200).json({
-                success: true,
-                message: cartCache
-            });
-        }
-
-        // const cart = await fetchCart(userId);
-
-        const cart = await fetchCart(userId);
-        await setCartCache(userId, cart)
-
+   
         res.status(200).json({
             success: true,
-            message: cart
+            message: 'Cart'
         });
 
 

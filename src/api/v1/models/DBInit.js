@@ -12,5 +12,6 @@ module.exports = {
     OrderDetail: prisma.order_detail,
     TrackOrder: prisma.track_order,
     PaymentDetail: prisma.payment_detail,
+    Review: prisma.reviews,
     prisma: prisma
 };

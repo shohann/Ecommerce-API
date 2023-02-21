@@ -8,32 +8,33 @@ datasource db {
 }
 
 model User {
-  id      String @default(uuid()) @unique @id
-  name      String
-  email     String @unique
-  password  String
-  role      Role @default(USER)
-  profile   Profile?
-  orders    Order[] 
-  payment   Payment_detail[]
+  id            String @default(uuid()) @unique @id
+  name          String
+  email         String @unique
+  password      String
+  role          Role @default(USER)
+  profile       Profile?
+  orders        Order[] 
+  payment       Payment_detail[]
+  reviews       Reviews[]
 }
 
 model Profile {
-  id String @default(uuid()) @unique @id
-  phone String @unique
-  address String
-  user   User @relation(fields: [userId], references: [id])
-  userId String  @unique 
+  id            String @default(uuid()) @unique @id
+  phone         String @unique
+  address       String
+  user          User @relation(fields: [userId], references: [id])
+  userId        String  @unique 
 }
 
 model Category {
-  id          String @default(uuid()) @unique @id
-  categoryName          String @unique
+  id            String @default(uuid()) @unique @id
+  categoryName  String @unique
   product       Product[]
 }
 
 model Product {
-  id          String @default(uuid()) @unique @id
+  id            String @default(uuid()) @unique @id
   name          String  
   stock         Int 
   price         Int
@@ -45,13 +46,22 @@ model Product {
   categoryId    String
   
   orderDetail   Order_detail[]
+
+  reviews   Reviews[]
 }
 
 model Reviews {
-  id          String @default(uuid()) @unique @id
-  comment       String
+  id            String @default(uuid()) @unique @id
+  comment       String?
+  rating        Int
+
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
+
   productId     String
-  // Relation with product
+  product       Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
 }
 
 model Order {
@@ -89,7 +99,7 @@ model Order_detail {
 }
 
 model Track_order {
-  id          String @default(uuid()) @unique @id
+  id            String @default(uuid()) @unique @id
   orderId       String @unique
   order         Order @relation(fields: [orderId], references: [id])
   address       String

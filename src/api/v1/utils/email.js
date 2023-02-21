@@ -1,6 +1,13 @@
 const nodemailer = require('nodemailer');
 
-const {  getEmailSender, getSmtpHost, getSmtpPort, getNodemailerAuthType, getOauth2ClientId, getOauth2ClientSecret, getOauth2RefreshToken } = require('./appConfigs');
+const {  getEmailSender, 
+         getSmtpHost, 
+         getSmtpPort, 
+         getNodemailerAuthType, 
+         getOauth2ClientId, 
+         getOauth2ClientSecret, 
+         getOauth2RefreshToken 
+      } = require('./appConfigs');
 
 // OAuth2
 const { getOauth2ClientAccessToken } = require('./oauth2');

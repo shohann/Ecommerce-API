@@ -10,5 +10,7 @@ module.exports = {
     CartItem: prisma.cart_item,
     Order: prisma.order,
     OrderDetail: prisma.order_detail,
-    TrackOrder: prisma.track_order
+    TrackOrder: prisma.track_order,
+    PaymentDetail: prisma.payment_detail,
+    prisma: prisma
 };

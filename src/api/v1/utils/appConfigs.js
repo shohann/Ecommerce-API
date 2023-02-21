@@ -11,6 +11,8 @@ module.exports.getRedisHost = () => config.get('redisHost');
 module.exports.getRedisPort = () => config.get('redisPort');
 module.exports.getVerifyEmailEX = () => config.get('verifyEmailEX');
 module.exports.getRefreshTokenCacheEX = () => config.get('refreshTokenCacheEX');
+module.exports.getCartCacheEx = () => config.get('cartCacheEx');
+
 
 // JWT
 module.exports.getAccessTokenSecret = () => config.get('accessTokenSecret');

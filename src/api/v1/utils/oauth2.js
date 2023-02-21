@@ -11,7 +11,8 @@ const oauth2RefreshToken =getOauth2RefreshToken();
 module.exports.getOauth2ClientAccessToken = async () => {
     const oauth2Client = new google.auth.OAuth2(oauth2ClientId, oauth2ClientSecret, oauth2RedirectUri);
     oauth2Client.setCredentials({refresh_token: oauth2RefreshToken});
-    return  await oauth2Client.getAccessToken();
+    const accessToken = await oauth2Client.getAccessToken();
+    return accessToken 
 };
 
 

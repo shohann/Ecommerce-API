@@ -15,6 +15,8 @@ module.exports.setProduct = async (req, res, next) => {
     }
 };
 
+// add more stock -> updateProduct Stock
+
 // get in stock products
 
 

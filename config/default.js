@@ -17,6 +17,7 @@ module.exports = {
     redisHost: '127.0.0.1',
     verifyEmailEX : 300,
     refreshTokenCacheEX: 1000,
+    cartCacheEx: 2000,
 
     // Nodemailer
     emailSender: 'cse.170201013@gmail.com',

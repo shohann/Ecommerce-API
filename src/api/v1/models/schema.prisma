@@ -13,11 +13,9 @@ model User {
   email     String @unique
   password  String
   role      Role @default(USER)
-  cart      Cart?
   profile   Profile?
-  orderDetail   Order_detail[]
-  orders    Order[]
-
+  orders    Order[] 
+  payment   Payment_detail[]
 }
 
 model Profile {
@@ -37,7 +35,7 @@ model Category {
 model Product {
   id          String @default(uuid()) @unique @id
   name          String  
-  stock         Int
+  stock         Int 
   price         Int
   image         String? // nullable - working
   desc          String
@@ -46,38 +44,8 @@ model Product {
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String
   
-  cartItem      Cart_item[]
   orderDetail   Order_detail[]
 }
-
-model Cart {
-  id          String @default(uuid()) @unique @id
-  total       Int @default(0)
-
-  user        User @relation(fields: [userId], references: [id])
-  userId      String @unique
-
-  CartItem    Cart_item[] 
-  // lower case cartItem -> order controller
-
-}
-
-model Cart_item {
-  id          String @default(uuid()) @unique @id
-  quantity    Int @default(1)
-  subTotal    Int
-
-  // user id with relation
-
-  cart        Cart @relation(fields: [cartId], references: [id])
-  cartId      String
-
-  product     Product @relation(fields: [productId], references: [id])
-  productId   String
-
-  @@unique([cartId, productId])
-}
-
 
 model Reviews {
   id          String @default(uuid()) @unique @id
@@ -88,54 +56,45 @@ model Reviews {
 
 model Order {
   id            String @default(uuid()) @unique @id
-
   userId        String 
   user          User  @relation(fields: [userId], references: [id])
-
   orderDetail   Order_detail[]
-
+  paymentDetail Payment_detail? 
   trackOrder    Track_order?
-
   address       String
-
   total         Int
-
   time          DateTime @default(now())
+}
+
+model Payment_detail {
+  id            String @default(uuid()) @unique @id
+  amount        Int
+  currency      String
+  time          DateTime @default(now())
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
+  orderId       String @unique
+  order         Order @relation(fields: [orderId], references: [id])
 }
 
 model Order_detail {
   id            String @default(uuid()) @unique @id
-
   orderId       String
   order         Order @relation(fields: [orderId], references: [id])
-
   productId     String 
   product       Product  @relation(fields: [productId], references: [id])
-
-  userId        String 
-  user          User  @relation(fields: [userId], references: [id])
-
   subTotal      Int
   quantity      Int
+  price         Int
 }
 
 model Track_order {
   id          String @default(uuid()) @unique @id
-
   orderId       String @unique
   order         Order @relation(fields: [orderId], references: [id])
-
   address       String
   status        Status @default(PREPARING)
 }
-
-// model Payment_details {
-
-// }
-
-// model discounts {
-// coupons
-// }
 
 enum Role {
   USER

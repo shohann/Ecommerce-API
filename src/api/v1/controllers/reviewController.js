@@ -3,7 +3,6 @@ const { createReview,
         fetchReviewsByProductId
       } = require('../services/reviewService');
 
-
 module.exports.setReview = async (req, res, next) => {
     try {
         const userId = req.user.id;

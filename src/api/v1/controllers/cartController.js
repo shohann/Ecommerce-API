@@ -53,7 +53,6 @@ module.exports.setCartItemInc = async (req, res, next) => {
             success: true,
             message: 'Item added to cart'
         });
-
     } catch (error) {
         console.log(error);
         next(error);

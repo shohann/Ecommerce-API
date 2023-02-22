@@ -1,8 +1,57 @@
-const { createProduct } = require('../services/productService');
+const { createProduct,
+        fetchProduct,
+        fetchProductSearchResults,
+        fetchProductsWithPagination
+      } = require('../services/productService');
+
+const { NotFound } = require('../utils/appErrors');
+
+module.exports.getProduct = async (req, res, next) => {
+    try {
+        const productId = req.params.productId;
+        const product = await fetchProduct(productId);
+        if (!product)  throw new NotFound('Product not found');
+
+        res.status(200).json({
+            success: true,
+            message: { product: product }
+        });
+    } catch (error) {
+        next(error)
+    }
+};
+
+module.exports.getProductsByCategory = async (req, res, next) => {
+    try {
+        const { category, take, skip } = req;
+        const products = await fetchProductsWithPagination(category, skip, take);
+
+        res.status(200).json({
+            success: true,
+            message: { products: products }
+        })
+    } catch (error) {
+        next(error)
+    }
+};
+
+module.exports.searchProducts = async (req, res, next) => {
+    try {
+        const { arg } = req.query;
+        const products = await fetchProductSearchResults(arg);
+        
+        res.status(200)
+           .json({
+                success: true,
+                message: { products: products }
+           })
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports.setProduct = async (req, res, next) => {
     try {
-
         const product = await createProduct(req.body)
 
         res.status(201).json({
@@ -14,6 +63,14 @@ module.exports.setProduct = async (req, res, next) => {
         next(error)
     }
 };
+
+module.exports.addProductStock = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
 
 // add more stock -> updateProduct Stock
 

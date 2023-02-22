@@ -5,8 +5,48 @@ module.exports.createProduct = async (product) => {
     return await Product.create({
         data: product
     })
+};
+
+module.exports.fetchProduct = async (productId) => {
+    return await Product.findUnique({
+        where: {
+            id: productId
+        }
+    })
 }
 
+module.exports.fetchProductSearchResults = async (arg) => {
+    return Product.findMany({
+        where: {
+            name: {
+                search: arg
+            }
+        }
+    });
+};
+
+module.exports.fetchProductsWithPagination = async (category, skip, take) => {
+    let products;
+
+    if (category) {
+        products = await Product.findMany({
+            skip: skip,
+            take: take,
+            where: {
+                category: {
+                    categoryName: category
+                }
+            }
+        });
+    } else {
+        products = await Product.findMany({
+            skip: skip,
+            take: take
+        });
+    }
+
+    return products
+};
 
 module.exports.fetchProductForCart = async (productId) => {
     return await Product.findUnique({
@@ -21,7 +61,6 @@ module.exports.fetchProductForCart = async (productId) => {
     });
 };
 
-// with review
 module.exports.fetchProductForReview = async (productId) => {
     return await Product.findUnique({
         where: {
@@ -31,7 +70,7 @@ module.exports.fetchProductForReview = async (productId) => {
             reviews: true
         }
     })
-}
+};
 
 // for order rouute // items
 module.exports.updateProductStockForOrder =  async (item) => {

@@ -40,15 +40,14 @@ const connectionData = {
     },
 }
 
-// email er sathe code o thakbe
-module.exports.sendVerificationEmail = async (email, code) => {
+module.exports.sendVerificationEmail = async (email, link) => {
     const transporter = await nodemailer.createTransport(connectionData);
     const mailOptions = {
         from: 'Verification <cse.170201013@gmail.com>',
         to: email,
         subject: "Verification Link",
-        text: code,
-        html: `<h1>${code}</h1>`
+        text: link,
+        html: `<h1>${link}</h1>`
     
     };
 

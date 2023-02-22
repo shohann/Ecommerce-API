@@ -2,7 +2,9 @@ const { decodeAccessToken,
         decodeRefreshToken, 
         getTokenFromTokenHeader } = require('../utils/jwt');
 
-const { BadRequest, Forbidden } = require('../utils/appErrors')
+const { getUserRefreshToken } = require('../cache/userCache');
+
+const { BadRequest, Forbidden, Unauthorized } = require('../utils/appErrors')
 
 module.exports.authorizeAccess = (req, res, next) => {
     try {
@@ -20,20 +22,26 @@ module.exports.authorizeAccess = (req, res, next) => {
             next(new BadRequest('Token Expired'))
         } else {
             next(error);
-        }
-        
+        } 
     }
 };
 
-// Incomplete
-module.exports.authorizeRefresh = (req, res, next) => {
+module.exports.authorizeRefresh = async (req, res, next) => {
     try {
         const tokenHeader = req.header('Authorization');
         const token = getTokenFromTokenHeader(tokenHeader);
         const decoded = decodeRefreshToken(token);
-        req.user = decoded
-        next();
+
+        const tokenCache = await getUserRefreshToken(decoded.email);
+
+        if (tokenCache === token) {
+            req.user = decoded;
+            next(); 
+        } else {
+            throw new Unauthorized('Invalid refresh token');
+        }
     } catch (error) {
+        console.log(error);
         if (error.name === 'TypeError') {
             next(new BadRequest('No token Provided'));
         } else if (error.name === 'JsonWebTokenError') {

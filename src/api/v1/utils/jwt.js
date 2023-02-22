@@ -70,8 +70,9 @@ module.exports.decodeVerificationToken = (verificationToken) => {
     return verify(verificationToken, verificationSecret)
 }
 
-module.exports.decodePasswordResetToken = (passwordResetToken) => {
-    // this depends on old password dor verify
+module.exports.decodePasswordResetToken = (passwordResetToken, currentPassword) => {
+    const secret = passwordResetSecret + currentPassword;
+    return verify(passwordResetToken, secret);
 }
 
 module.exports.getTokenFromTokenHeader = (tokenHeader) => {

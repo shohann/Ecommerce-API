@@ -1,10 +1,5 @@
-const { createCategory } = require('../services//categoryService');
-
+const { createCategory, fetchCategoris } = require('../services/categoryService');
 const { Conflict } = require('../utils/appErrors')
-
-module.exports.getCategory = async (req, res, next) => {
-    
-}
 
 module.exports.setCategory = async (req, res, next) => {
     try {
@@ -25,14 +20,17 @@ module.exports.setCategory = async (req, res, next) => {
 };
 
 module.exports.getCategories = async (req, res, next) => {
-
+    try {
+        const categories = await fetchCategoris();
+        
+        res.status(200)
+           .json({
+                success: true,
+                message: categories
+           });
+    } catch (error) {
+        next();
+    }
 };
 
-module.exports.modifyCategory = async (req, res, next) => {
-
-};
-
-module.exports.removeCategory = async (req, res, next) => {
-
-};
 

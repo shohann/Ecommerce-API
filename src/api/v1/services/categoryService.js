@@ -7,3 +7,7 @@ module.exports.createCategory = async (categoryName) => {
         }
     });
 };
+
+module.exports.fetchCategoris = async () => {
+    return await Category.findMany();
+};

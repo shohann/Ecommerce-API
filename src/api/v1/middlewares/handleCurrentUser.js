@@ -55,7 +55,7 @@ module.exports.authorizeRefresh = async (req, res, next) => {
 
 module.exports.authorizeAdmin = (req, res, next) => {
     try {
-        if (req.user.role !== 'admin') {
+        if (req.user.role !== 'ADMIN') {
             throw new Forbidden('Access Denied');
         } else {
             next();
@@ -67,7 +67,7 @@ module.exports.authorizeAdmin = (req, res, next) => {
 
 module.exports.authorizeEmployee = (req, res, next) => {
     try {
-        if (req.user.role !== 'employee') {
+        if (req.user.role !== 'EMPLOYEE') {
             throw new Forbidden('Access Denied');
         } else {
             next();

@@ -4,9 +4,8 @@ const { validateCategory } = require('../middlewares/validate');
 
 router.route('/')
       .post(validateCategory, setCategory)
+      // .get() // all categories will show up
 //    .put()
 //    .delete()
-
-// router.get('/:categoryId', )
 
 module.exports = router

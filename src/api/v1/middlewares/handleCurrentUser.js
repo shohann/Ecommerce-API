@@ -1,9 +1,9 @@
 const { decodeAccessToken, 
         decodeRefreshToken, 
-        getTokenFromTokenHeader } = require('../utils/jwt');
-
-const { getUserRefreshToken } = require('../cache/userCache');
-
+        getTokenFromTokenHeader 
+      } = require('../utils/jwt');
+// const { getUserRefreshToken } = require('../cache/userCache');
+const { getUserRefreshToken } = require('../services/userService');
 const { BadRequest, Forbidden, Unauthorized } = require('../utils/appErrors')
 
 module.exports.authorizeAccess = (req, res, next) => {

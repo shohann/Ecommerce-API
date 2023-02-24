@@ -1,5 +1,7 @@
 const { cacheClient } = require('../cache/cacheDBInit');
 
+// cart deletion after order
+
 module.exports.createEmptyCart = () => {
     const newCart = {
         total: 0,

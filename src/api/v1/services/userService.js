@@ -38,8 +38,6 @@ module.exports.updateUserPassword = async (userId, newPassword) => {
         }
     });
 };
-
-
 //////
 // JWT refresh ttl === refresh redis ttl and verfication token and redis key ttl
 

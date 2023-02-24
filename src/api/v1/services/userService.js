@@ -1,6 +1,8 @@
 const { User } = require('../models/DBInit');
 const { cacheClient } = require('../cache/cacheDBInit');
-const { getVerifyEmailEX, getRefreshTokenCacheEX } = require('../utils/appErrors')
+const { getVerifyEmailEX, 
+        getRefreshTokenCacheEX 
+      } = require('../utils/appConfigs');
 
 module.exports.createUser = async (name, email, password) => {
     return await User.create({
@@ -38,9 +40,7 @@ module.exports.updateUserPassword = async (userId, newPassword) => {
         }
     });
 };
-//////
 // JWT refresh ttl === refresh redis ttl and verfication token and redis key ttl
-
 // SignUp
 module.exports.setUserSignUpCache = async (email, user) => {
     const verifyEmailEX = getVerifyEmailEX();
@@ -54,7 +54,6 @@ module.exports.getUserSignUpCache = async (email) => {
 module.exports.deleteUserSignUpCache = async (email) => {
     await cacheClient.del(email);
 };
-
 // Refresh token
 module.exports.setUserRefreshToken = async (email, refreshToken) => {
     const refreshTokenCacheEX = getRefreshTokenCacheEX()

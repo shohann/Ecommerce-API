@@ -2,24 +2,12 @@ const { createUser,
         fetchUserByEmail,
         fetchUserById,
         updateUserPassword,
-
-        //cache
         setUserSignUpCache, 
         getUserSignUpCache, 
         deleteUserSignUpCache, 
         setUserRefreshToken,
         deleteUserRefreshToken
       } = require('../services/userService');
-
-////
-// const { 
-//         setUserSignUpCache, 
-//         getUserSignUpCache, 
-//         deleteUserSignUpCache, 
-//         setUserRefreshToken,
-//         deleteUserRefreshToken
-//       } = require('../cache/userCache');
-
 const { generateVerificationToken, 
         decodeVerificationToken, 
         generateAccessToken, 
@@ -27,15 +15,12 @@ const { generateVerificationToken,
         generatePasswordResetToken,
         decodePasswordResetToken 
       } = require('../utils/jwt');
-
 const { generateHashedPassword, 
         compareHashedPassword 
       } = require('../utils/hash');
-
 const { Unauthorized, 
         BadRequest 
       } = require('../utils/appErrors');
-
 const { sendVerificationEmail } = require('../utils/email');
 
 module.exports.signUp = async (req, res, next) => {
@@ -74,6 +59,7 @@ module.exports.verifyEmail = async (req, res, next) => {
 
         const user = await createUser(userCache.name, userCache.email, userCache.password);
         await deleteUserSignUpCache(email);
+
 
         const accessToken = generateAccessToken(user.email, user.id, user.role);
         const refreshToken = generateRefreshToken(user.email, user.id, user.role);
@@ -151,8 +137,8 @@ module.exports.refresh = async (req, res, next) => {
                 message: {
                     accessToken: accessToken,
                     refreshToken: refreshToken
-                }
-        })
+            }
+        });
     } catch (error) {
         next(error)
     }

@@ -45,4 +45,7 @@ module.exports.getNodemailerAuthType = () => config.get('nodemailerAuthType');
 // Stripe
 module.exports.getStripeKey = () => config.get('stripeKey');
 
+// Multer
+module.exports.getFileMaxSize = () => config.get('fileMaxSize');
+
 

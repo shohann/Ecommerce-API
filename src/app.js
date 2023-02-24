@@ -17,6 +17,7 @@ const orderRouter = require('./api/v1/routes/orderRoute');
 const paymentRouter = require('./api/v1/routes/paymentRoute');
 const reviewRouter = require('./api/v1/routes/reviewRoute');
 
+app.use(express.static('public'));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 

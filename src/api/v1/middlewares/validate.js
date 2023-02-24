@@ -118,4 +118,28 @@ module.exports.validateReview = (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
+};
+
+
+
+// module.exports.validateNews =  async (req, res, next) => {
+//     const localPath = req.file.path;
+//     try {
+//         const { header, categoryName, newsText } = req.body;
+//         const { error } = newsValidation({
+//             header: header,
+//             categoryName: categoryName,
+//             newsText: newsText,
+//         });
+
+//         if (error) {
+//             const message = error.details.map(error => error.message);
+//             throw new BadRequest(message);
+//         } else {
+//             next();
+//         }
+//     } catch (error) {
+//         await unlink(localPath);
+//         next(error)
+//     }
+// };

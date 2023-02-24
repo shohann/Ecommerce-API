@@ -23,6 +23,9 @@ module.exports = {
     emailSender: 'cse.170201013@gmail.com',
     smtpHost: 'smtp.gmail.com',
     smtpPort: 465,
-    nodemailerAuthType: 'OAuth2'
+    nodemailerAuthType: 'OAuth2',
+
+    // Multer
+    fileMaxSize: 2 * 1024 * 1024
 
 };

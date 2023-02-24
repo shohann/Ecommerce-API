@@ -1,12 +1,11 @@
 const { 
         userSignUpValidation, 
-        userLogInValidation 
+        userValidation,
+        userEmailValidation
       } = require('../validations/userValidation');
 const { profileValidation } = require('../validations/profileValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
 const { reviewValidation } = require('../validations/reviewValidation')
-
-
 const { BadRequest } = require('../utils/appErrors');
 
 module.exports.validateUserSignUp = (req, res, next) => {
@@ -29,16 +28,16 @@ module.exports.validateUserSignUp = (req, res, next) => {
     }
 };
 
-module.exports.validateUserLogIn = (req, res, next) => {
+module.exports.validateUser = (req, res, next) => {
     try {
         const { email, password } = req.body
-        const { error } = userLogInValidation({
+        const { error } = userValidation({
             email: email,
             password: password
         });
     
         if (error) {
-            throw new BadRequest('Invalid Email or password'); // **
+            throw new BadRequest('Invalid Email or password'); 
         } else {
             next();
         }
@@ -46,6 +45,23 @@ module.exports.validateUserLogIn = (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.validateUserEmail = (req, res, next) => {
+    try {
+        const { email } = req.body
+        const { error } = userEmailValidation({
+            email: email
+        });
+    
+        if (error) {
+            throw new BadRequest('Invalid Email'); 
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error);
+    }
+}
 
 module.exports.validateProfile = (req, res, next) => {
     try {

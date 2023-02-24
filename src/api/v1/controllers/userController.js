@@ -1,15 +1,24 @@
 const { createUser, 
         fetchUserByEmail,
         fetchUserById,
-        updateUserPassword
-      } = require('../services/userService');
+        updateUserPassword,
 
-const { setUserSignUpCache, 
+        //cache
+        setUserSignUpCache, 
         getUserSignUpCache, 
         deleteUserSignUpCache, 
         setUserRefreshToken,
         deleteUserRefreshToken
-      } = require('../cache/userCache');
+      } = require('../services/userService');
+
+////
+// const { 
+//         setUserSignUpCache, 
+//         getUserSignUpCache, 
+//         deleteUserSignUpCache, 
+//         setUserRefreshToken,
+//         deleteUserRefreshToken
+//       } = require('../cache/userCache');
 
 const { generateVerificationToken, 
         decodeVerificationToken, 
@@ -37,11 +46,12 @@ module.exports.signUp = async (req, res, next) => {
         if (user) {
             throw new BadRequest('User already has an account');
         }
-        // link creation
+
         const hashedPassword = await generateHashedPassword(password); 
         const verificationToken = generateVerificationToken(email);
+        const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
         await setUserSignUpCache(email,{ name: name, email: email, password: hashedPassword });
-        await sendVerificationEmail(email, verificationToken);
+        await sendVerificationEmail(email, link);
 
         res.status(201).json({
             success: true,
@@ -85,14 +95,14 @@ module.exports.resendVerificationEmail = async (req, res, next) => {
     try {
         const { email } = req.body;
         const userCache = await getUserSignUpCache(email);
-
         if (!userCache) {
             throw new BadRequest('Invalid request');
         }
         
         const verificationToken = generateVerificationToken(email);
+        const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
         await setUserSignUpCache(email, userCache);
-        await sendVerificationEmail(email, verificationToken);
+        await sendVerificationEmail(email, link);
 
         res.status(201).json({
             success: true,
@@ -163,7 +173,6 @@ module.exports.logOut = async (req, res, next) => {
     }
 };
 
-// only email -> separate validation
 module.exports.forgetPassword = async (req, res, next) => {
     try {
         const email = req.body.email;
@@ -185,7 +194,6 @@ module.exports.forgetPassword = async (req, res, next) => {
     }
 };
 
-// email and password both -> update password -> separate validation
 module.exports.changePassword = async (req, res, next) => {
     try {
         const email = req.body.email;

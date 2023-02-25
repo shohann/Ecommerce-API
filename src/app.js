@@ -1,7 +1,9 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 const app = express();
 const port = require('./api/v1/utils/appConfigs').getPort();
 
+const { apiDocumentation } = require('./swagger/apiDocs')
 const { cacheClient } = require('./api/v1/cache/cacheDBInit');
 const { 
         handleUnknownRoute, 
@@ -29,6 +31,7 @@ app.use('/api/v1/carts', cartRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/payments', paymentRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
 
 app.all('*', handleUnknownRoute);
 app.use(handleError);

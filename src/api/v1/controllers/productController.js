@@ -49,7 +49,6 @@ module.exports.searchProducts = async (req, res, next) => {
     }
 }
 
-// working
 module.exports.setProduct = async (req, res, next) => {
     try {
         const { image, cloudId, categoryId} = req;
@@ -87,21 +86,4 @@ module.exports.addProductStock = async (req, res, next) => {
 // get in stock products
 
 
-// 8f1eaff9-7008-446a-8f52-33e1c81db37f
-
-/*
-
-  name           
-  stock         
-  image         
-  desc          
-  cloudId       
-  categoryId  
-
-  "name": "Nokia T9",
-  "stock": 5,
-  "desc": "This is description",
-  "categoryId": "8f1eaff9-7008-446a-8f52-33e1c81db37f"
-
-*/
 

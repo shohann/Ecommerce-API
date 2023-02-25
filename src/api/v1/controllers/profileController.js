@@ -1,5 +1,4 @@
-const { createProfile } = require('../services/profileService')
-
+const { createProfile } = require('../services/profileService');
 const { Conflict } = require('../utils/appErrors');
 
 module.exports.setProfile = async (req, res, next) => {

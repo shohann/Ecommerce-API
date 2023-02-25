@@ -39,9 +39,9 @@ model Product {
   name          String  
   stock         Int 
   price         Int
-  image         String? // nullable - working
+  image         String? 
   desc          String
-  cloudId       String? // nullable - working
+  cloudId       String? 
 
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    String

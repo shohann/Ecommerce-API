@@ -3,7 +3,7 @@ const { authorizeAccess,
         authorizeAdmin 
       } = require('../middlewares/handleCurrentUser');
 const { pagination } = require('../middlewares/pagination');
-const { localUpload } = require('../middlewares/handleUpload');
+const { localUpload, cloudUpload } = require('../middlewares/handleUpload');
 const { validateProduct } = require('../middlewares/validate');
 const { setProduct,
         getProduct,
@@ -17,6 +17,7 @@ router.route('/')
             authorizeAdmin, 
             localUpload,
             validateProduct,
+            cloudUpload,
             checkProductCategory, 
             setProduct)
       .get(pagination, getProductsByCategory)

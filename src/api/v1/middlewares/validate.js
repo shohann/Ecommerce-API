@@ -104,12 +104,14 @@ module.exports.validateCategory = (req, res, next) => {
 
 module.exports.validateProduct = (req, res, next) => {
     try {
-        req.body.price = parseInt(req.body.price)
-        const { name, category, price, desc } = req.body;
+        req.body.price = parseInt(req.body.price);
+        req.body.stock = parseInt(req.body.stock);
+        const { name, category, price, stock, desc } = req.body;
         const { error } = productValidation({
             name: name,
             category: category,
             price: price,
+            stock: stock,
             desc: desc
         });
     
@@ -142,27 +144,3 @@ module.exports.validateReview = (req, res, next) => {
         next(error)
     }
 };
-
-
-
-// module.exports.validateNews =  async (req, res, next) => {
-//     const localPath = req.file.path;
-//     try {
-//         const { header, categoryName, newsText } = req.body;
-//         const { error } = newsValidation({
-//             header: header,
-//             categoryName: categoryName,
-//             newsText: newsText,
-//         });
-
-//         if (error) {
-//             const message = error.details.map(error => error.message);
-//             throw new BadRequest(message);
-//         } else {
-//             next();
-//         }
-//     } catch (error) {
-//         await unlink(localPath);
-//         next(error)
-//     }
-// };

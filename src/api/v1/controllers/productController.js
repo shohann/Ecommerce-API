@@ -53,16 +53,24 @@ module.exports.searchProducts = async (req, res, next) => {
 // working
 module.exports.setProduct = async (req, res, next) => {
     try {
-        console.log(req.body.name);
-        // const product = await createProduct(req.body)
+        const { image, cloudId, categoryId} = req;
+        const { name, price, stock, desc } = req.body;
+        const product = await createProduct({
+            name: name,
+            price: price,
+            stock: stock,
+            desc: desc,
+            image: image,
+            cloudId: cloudId,
+            categoryId: categoryId
+        })
 
         res.status(201).json({
             success: true,
-            // message: product
-            message: 'product'
+            message: product
         })
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         next(error)
     }
 };

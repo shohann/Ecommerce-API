@@ -18,19 +18,13 @@ module.exports.localUpload = (req, res, next) => {
     });
 };
 
-
-
-
-
-
-
 module.exports.cloudUpload = async (req, res, next) => {
     const localPath = req.file.path;
     try {
-        const image = await cloudinaryUploader(localPath);
+        const { image, cloudId } = await cloudinaryUploader(localPath);
         if (!image) throw new ApplicationError('Internal server error');
         req.image = image;
-        await unlink(localPath);
+        req.cloudId = cloudId;
         next();
     } catch (error) {
         await unlink(localPath);

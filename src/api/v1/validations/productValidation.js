@@ -5,6 +5,7 @@ module.exports.productValidation = product => {
         name: Joi.string().min(2).max(30).required(),
         category: Joi.string().required(),
         price: Joi.number().min(1).required(),
+        stock: Joi.number().min(1).required(),
         desc: Joi.string().min(5).max(300).required(),
     });
     return schema.validate(product,  {  abortEarly: false });

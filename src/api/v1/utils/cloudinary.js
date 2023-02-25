@@ -11,7 +11,10 @@ cloudinary.config({
 });
 
 module.exports.cloudinaryUploader = async (localPath) => {
-    const { secure_url } = await cloudinary.uploader.upload(localPath);
+    const { secure_url, public_id } = await cloudinary.uploader.upload(localPath);
     await unlink(localPath);
-    return secure_url;
+    return {
+        image: secure_url,
+        cloudId: public_id
+    }
 };

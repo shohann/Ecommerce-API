@@ -1,10 +1,10 @@
 const multer = require("multer");
-const { BadRequest } = require('../utils/appError');
+const { BadRequest } = require('./appErrors');
 const fileMaxSize = require('./appConfigs').getFileMaxSize();
 
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null,  "public/uploads/");
+    cb(null,  "public/");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -27,13 +27,6 @@ module.exports.multerUpload = multer({
 
 
 
-// app.use(function (err, req, res, next) {
-//   if (err.code === 'LIMIT_FILE_SIZE') {
-//     res.send({ result: 'fail', error: { code: 1001, message: 'File is too big' } })
-//     return 
-//   }
-//   // Handle any other errors
-// })
 
 
 

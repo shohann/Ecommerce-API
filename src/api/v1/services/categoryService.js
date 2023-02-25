@@ -11,3 +11,11 @@ module.exports.createCategory = async (categoryName) => {
 module.exports.fetchCategoris = async () => {
     return await Category.findMany();
 };
+
+module.exports.fetchCategory = async (categoryName) => {
+    return await Category.findUnique({
+        where: {
+            categoryName: categoryName
+        }
+    });
+};

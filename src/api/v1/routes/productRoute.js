@@ -1,14 +1,24 @@
 const router = require('express').Router();
-const { authorizeAccess } = require('../middlewares/handleCurrentUser');
-const { pagination } = require('../middlewares/pagination')
+const { authorizeAccess,
+        authorizeAdmin 
+      } = require('../middlewares/handleCurrentUser');
+const { pagination } = require('../middlewares/pagination');
+const { localUpload } = require('../middlewares/handleUpload');
+const { validateProduct } = require('../middlewares/validate');
 const { setProduct,
         getProduct,
         searchProducts,
         getProductsByCategory
       } = require('../controllers/productController');
+const { checkProductCategory } = require('../middlewares/checkProductCategory');
 
 router.route('/')
-      .post(setProduct) // auth -> admin
+      .post(authorizeAccess, 
+            authorizeAdmin, 
+            localUpload,
+            validateProduct,
+            checkProductCategory, 
+            setProduct)
       .get(pagination, getProductsByCategory)
 
 router.get('/all/search', searchProducts);
@@ -18,7 +28,6 @@ router.get('/:productId', getProduct);
 // photo update
 // 2 types of update stock only and full
 // validation for both
-
 // update product stock by increment 
 
 module.exports = router;

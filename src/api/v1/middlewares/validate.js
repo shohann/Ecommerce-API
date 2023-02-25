@@ -4,6 +4,7 @@ const {
         userEmailValidation
       } = require('../validations/userValidation');
 const { profileValidation } = require('../validations/profileValidation');
+const {  productValidation } = require('../validations/productValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
 const { reviewValidation } = require('../validations/reviewValidation')
 const { BadRequest } = require('../utils/appErrors');
@@ -100,6 +101,28 @@ module.exports.validateCategory = (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.validateProduct = (req, res, next) => {
+    try {
+        req.body.price = parseInt(req.body.price)
+        const { name, category, price, desc } = req.body;
+        const { error } = productValidation({
+            name: name,
+            category: category,
+            price: price,
+            desc: desc
+        });
+    
+        if (error) {
+            const messages = error.details.map(error => error.message);
+            throw new BadRequest(messages);
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error);
+    }
+}
 
 module.exports.validateReview = (req, res, next) => {
     try {

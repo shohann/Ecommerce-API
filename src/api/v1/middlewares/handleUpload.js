@@ -1,19 +1,28 @@
 const { multerUpload } = require('../utils/multer');
-
 const { cloudinaryUploader } = require('../utils/cloudinary');
-const { ApplicationError } = require('../utils/appError');
+const { ApplicationError, BadRequest } = require('../utils/appErrors');
 const { unlink } = require('fs').promises;
 
 module.exports.localUpload = (req, res, next) => {
     multerUpload(req, res, function (error) {
         if (error) {
+            if (error.code === 'LIMIT_FILE_SIZE') {
+                return next(new BadRequest('File too large'));
+            }
             next(error);
-        } else if (!req.file) {
+        } 
+        if (!req.file) {
           next(new BadRequest('You must provide a file'));
         }
-        else return next();
+        next();
     });
 };
+
+
+
+
+
+
 
 module.exports.cloudUpload = async (req, res, next) => {
     const localPath = req.file.path;

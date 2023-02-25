@@ -1,12 +1,11 @@
-
-
 const Joi = require('joi');
 
-module.exports.newsValidation = news => {
+module.exports.productValidation = product => {
     const schema = Joi.object({
-        header: Joi.string().min(2).max(30).required(),
-        categoryName: Joi.string().min(2).max(20).required(),
-        newsText: Joi.string().min(2).max(2000).required(),
+        name: Joi.string().min(2).max(30).required(),
+        category: Joi.string().required(),
+        price: Joi.number().min(1).required(),
+        desc: Joi.string().min(5).max(300).required(),
     });
-    return schema.validate(news,  {  abortEarly: false });
+    return schema.validate(product,  {  abortEarly: false });
 };

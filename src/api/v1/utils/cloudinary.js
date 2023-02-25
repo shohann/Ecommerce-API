@@ -1,7 +1,8 @@
 const cloudinary = require('cloudinary').v2;
 const { getCloudinaryName, 
         getCloudinaryAPIKey, 
-        getCloudinaryAPISecret } = require('./appConfigs');
+        getCloudinaryAPISecret 
+      } = require('./appConfigs');
 const { unlink } = require('fs').promises;
 
 cloudinary.config({

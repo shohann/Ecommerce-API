@@ -3,7 +3,6 @@ const { createProduct,
         fetchProductSearchResults,
         fetchProductsWithPagination
       } = require('../services/productService');
-
 const { NotFound } = require('../utils/appErrors');
 
 module.exports.getProduct = async (req, res, next) => {

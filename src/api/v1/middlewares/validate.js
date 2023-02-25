@@ -3,7 +3,9 @@ const {
         userValidation,
         userEmailValidation
       } = require('../validations/userValidation');
-const { profileValidation } = require('../validations/profileValidation');
+const { profileValidation,
+        profileUpdationValidation
+      } = require('../validations/profileValidation');
 const {  productValidation } = require('../validations/productValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
 const { reviewValidation } = require('../validations/reviewValidation')
@@ -83,6 +85,27 @@ module.exports.validateProfile = (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.validateProfileUpdation = (req, res, next) => {
+    try {
+        const profile = req.body
+
+        if (!profile.address && !profile.phone) {
+            throw new BadRequest('Atleast 1 field required');
+        }
+
+        const { error } = profileUpdationValidation(profile);
+    
+        if (error) {
+            const messages = error.details.map(error => error.message);
+            throw new BadRequest(messages);
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports.validateCategory = (req, res, next) => {
     try {

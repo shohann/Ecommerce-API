@@ -28,7 +28,6 @@ module.exports.setReview = async (req, res, next) => {
                message: `Review created by ID: ${review.id}`
         });
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };

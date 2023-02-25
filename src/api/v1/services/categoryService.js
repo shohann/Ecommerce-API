@@ -19,3 +19,14 @@ module.exports.fetchCategory = async (categoryName) => {
         }
     });
 };
+
+module.exports.updateCategoryName = async (categoryId, categoryName) => {
+     await Category.update({
+        where: {
+            id: categoryId
+        },
+        data: {
+            categoryName: categoryName
+        }
+    });
+};

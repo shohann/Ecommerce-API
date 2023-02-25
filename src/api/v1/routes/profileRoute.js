@@ -1,10 +1,17 @@
 const router = require('express').Router();
-const { setProfile } = require('../controllers/profileController');
+const { setProfile, 
+        getProfile,
+        modifyProfile
+      } = require('../controllers/profileController');
 
-const { validateProfile } = require('../middlewares/validate');
+const { validateProfile, 
+        validateProfileUpdation 
+      } = require('../middlewares/validate');
 const { authorizeAccess } = require('../middlewares/handleCurrentUser');
 
 router.route('/')
-      .post(validateProfile, authorizeAccess, setProfile)
+      .post(authorizeAccess, validateProfile, setProfile)
+      .get(authorizeAccess, getProfile)
+      .put(authorizeAccess, validateProfileUpdation, modifyProfile) // validatios
 
 module.exports = router;

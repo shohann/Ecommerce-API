@@ -8,6 +8,8 @@ const { setProfile, profileBody,
 
 const { setCategory, categoryBody, getCategories, modifyCategory } = require('./categories');
 
+const { setProduct, productBody } = require('./products')
+
 const apiDocumentation = {
   openapi: '3.0.1',
   info: {
@@ -45,6 +47,9 @@ const apiDocumentation = {
     {
       name: 'Categories',
     },
+    {
+      name: 'Products'
+    }
   ],
   paths: {
     'users/signup': {
@@ -87,6 +92,10 @@ const apiDocumentation = {
     },
     'categories/{categoryId}': {
       put: modifyCategory
+    },
+    ////////
+    products: {
+      post: setProduct
     }
 
   },
@@ -105,7 +114,8 @@ const apiDocumentation = {
       forgetBody,
       changeBody,
       profileBody,
-      categoryBody
+      categoryBody,
+      productBody
     },
   },
 };

@@ -3,7 +3,10 @@ const { signUp, signUpBody, verify, resend, resendBody,
         forgetBody, change, changeBody,reset
       } = require('./users');
 
-const { setProfile, profileBody, getProfile, modifyProfile } = require('./profiles');
+const { setProfile, profileBody, 
+        getProfile, modifyProfile } = require('./profiles');
+
+const { setCategory, categoryBody, getCategories, modifyCategory } = require('./categories');
 
 const apiDocumentation = {
   openapi: '3.0.1',
@@ -39,6 +42,9 @@ const apiDocumentation = {
     {
       name: 'Profiles',
     },
+    {
+      name: 'Categories',
+    },
   ],
   paths: {
     'users/signup': {
@@ -73,6 +79,14 @@ const apiDocumentation = {
       post: setProfile,
       get: getProfile,
       put: modifyProfile
+    },
+    ////////
+    categories: {
+      post: setCategory,
+      get: getCategories
+    },
+    'categories/{categoryId}': {
+      put: modifyCategory
     }
 
   },
@@ -90,7 +104,8 @@ const apiDocumentation = {
       logInBody,
       forgetBody,
       changeBody,
-      profileBody
+      profileBody,
+      categoryBody
     },
   },
 };

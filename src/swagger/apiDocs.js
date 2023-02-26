@@ -6,9 +6,22 @@ const { signUp, signUpBody, verify, resend, resendBody,
 const { setProfile, profileBody, 
         getProfile, modifyProfile } = require('./profiles');
 
-const { setCategory, categoryBody, getCategories, modifyCategory } = require('./categories');
+const { setCategory, categoryBody,
+        getCategories, modifyCategory } = require('./categories');
 
-const { setProduct, productBody } = require('./products')
+const { setProduct, productBody, getProduct, 
+        getProductsWithPagination, searchProducts, 
+        updateProduct, removeProduct
+      } = require('./products');
+
+const { getCart, removeCart, 
+        setCartItemInc, removeCartItemDec,
+        removeCartItem } = require('./carts');
+
+const { setOrder } = require('./orders');
+
+const { setPayment, paymentBody } = require('./payments');
+
 
 const apiDocumentation = {
   openapi: '3.0.1',
@@ -49,6 +62,15 @@ const apiDocumentation = {
     },
     {
       name: 'Products'
+    },
+    {
+      name: 'Carts'
+    },
+    {
+      name: 'Orders'
+    },
+    {
+      name: 'Payments'
     }
   ],
   paths: {
@@ -94,8 +116,41 @@ const apiDocumentation = {
       put: modifyCategory
     },
     ////////
-    products: {
-      post: setProduct
+    'products/': {
+      'post': setProduct,
+      'get': getProductsWithPagination,
+      'update': updateProduct,
+      'delete': removeProduct
+    },
+    'products/all/search': {
+      get: searchProducts
+    },
+    'products/{productId}': {
+      get: getProduct
+    },
+
+    ///
+    'carts/': {
+      get: getCart,
+      delete: removeCart
+    },
+    'carts/inc/{productId}': {
+      post: setCartItemInc
+    },
+    'carts/dec/{productId}': {
+      delete: removeCartItemDec
+    },
+    'carts/{productId}': {
+      delete: removeCartItem
+    },
+
+    //
+    'orders/': {
+      post: setOrder
+    },
+    //
+    'payments/{productId}': {
+      post: setPayment
     }
 
   },
@@ -115,7 +170,8 @@ const apiDocumentation = {
       changeBody,
       profileBody,
       categoryBody,
-      productBody
+      productBody,
+      paymentBody
     },
   },
 };

@@ -29,7 +29,6 @@ module.exports.getCart = async (req, res, next) => {
     }
 };
 
-
 module.exports.setCartItemInc = async (req, res, next) => {
     try {
         const userId = req.user.id;
@@ -58,7 +57,6 @@ module.exports.setCartItemInc = async (req, res, next) => {
         next(error);
     }
 };
-
 
 module.exports.removeCartItemDec = async (req, res, next) => {
     try {

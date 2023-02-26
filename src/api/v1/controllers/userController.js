@@ -54,7 +54,7 @@ module.exports.verifyEmail = async (req, res, next) => {
         const userCache = await getUserSignUpCache(email);
 
         if (!email || email !== userCache.email) {
-            throw new BadRequest('Invalid Token');
+            throw new BadRequest('Invalid Verification Token');
         }
 
         const user = await createUser(userCache.name, userCache.email, userCache.password);

@@ -1,5 +1,8 @@
-const { createUser, createUserBody, deleteUser, getUser, getUsers, updateUser, updateUserBody } = require('./users');
-const { createOrUpdateRoleBody, createRole, deleteRole, getRole, getRoles, updateRole } = require('./roles')
+const { 
+        signUp, signUpBody, verify, resend, resendBody,
+        logIn, logInBody, refresh, logOut, forget, 
+        forgetBody, change, changeBody,reset
+      } = require('./users');
 
 const apiDocumentation = {
   openapi: '3.0.1',
@@ -33,28 +36,37 @@ const apiDocumentation = {
       name: 'Users',
     },
     {
-      name: 'Roles',
+      name: 'Profile',
     },
   ],
   paths: {
-    users: {
-      post: createUser,
-      get: getUsers,
+    'users/signup': {
+      post: signUp
     },
-    'users/{id}': {
-      delete: deleteUser,
-      get: getUser,
-      patch: updateUser,
+    'users/verify/{token}': {
+      get: verify
     },
-    roles: {
-      post: createRole,
-      get: getRoles,
+    'users/resend': {
+      post: resend
     },
-    'roles/{id}': {
-      delete: deleteRole,
-      get: getRole,
-      put: updateRole,
+    'users/login': {
+      post: logIn
     },
+    'users/refresh': {
+      get: refresh
+    },
+    'users/logout': {
+      delete: logOut
+    },
+    'users/forget': {
+      post: forget
+    },
+    'users/change': {
+      post: change
+    },
+    'users/reset/{userId}/{token}': {
+      put: reset
+    }
   },
   components: {
     securitySchemes: {
@@ -65,9 +77,12 @@ const apiDocumentation = {
       },
     },
     schemas: {
-      createUserBody,
-      updateUserBody,
-      createOrUpdateRoleBody,
+      signUpBody,
+      resendBody,
+      logInBody,
+      forgetBody,
+      changeBody,
+      
     },
   },
 };

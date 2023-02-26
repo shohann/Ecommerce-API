@@ -272,4 +272,7 @@ const roleResponse = {
     },
   };
   
-  module.exports = { createRole, createOrUpdateRoleBody, deleteRole, getRoles, getRole, updateRole };
+  module.exports = { createRole, createOrUpdateRoleBody,
+                      deleteRole, getRoles, 
+                      getRole, updateRole 
+                   };

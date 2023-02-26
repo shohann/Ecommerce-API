@@ -1,8 +1,9 @@
-const { 
-        signUp, signUpBody, verify, resend, resendBody,
+const { signUp, signUpBody, verify, resend, resendBody,
         logIn, logInBody, refresh, logOut, forget, 
         forgetBody, change, changeBody,reset
       } = require('./users');
+
+const { setProfile, profileBody, getProfile, modifyProfile } = require('./profiles');
 
 const apiDocumentation = {
   openapi: '3.0.1',
@@ -36,7 +37,7 @@ const apiDocumentation = {
       name: 'Users',
     },
     {
-      name: 'Profile',
+      name: 'Profiles',
     },
   ],
   paths: {
@@ -66,7 +67,14 @@ const apiDocumentation = {
     },
     'users/reset/{userId}/{token}': {
       put: reset
+    },
+    /////////////////////
+    profiles : {
+      post: setProfile,
+      get: getProfile,
+      put: modifyProfile
     }
+
   },
   components: {
     securitySchemes: {
@@ -82,7 +90,7 @@ const apiDocumentation = {
       logInBody,
       forgetBody,
       changeBody,
-      
+      profileBody
     },
   },
 };

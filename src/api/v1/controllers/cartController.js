@@ -1,31 +1,23 @@
-const { fetchCart,
-        createCartItemToCart,
+const { createCartItemToCart,
         incrementCartItemQuantity,
         decrementCartItemQuantity,
         deleteCartItem,
-        deleteCart
+        deleteCart,
+        fetchCartAndItems
       } = require('../services/cartService');
 const { NotFound } = require('../utils/appErrors');
 
-
-// baki
 module.exports.getCart = async (req, res, next) => {
     try {
         const userId = req.user.id;
+        const cart = await fetchCartAndItems(userId)
 
-
-   
-
-   
         res.status(200).json({
             success: true,
-            message: 'Cart'
+            message: cart
         });
-
-
     } catch (error) {
-        console.log(error);
-        next(error)
+        next(error);
     }
 };
 

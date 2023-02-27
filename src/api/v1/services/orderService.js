@@ -34,6 +34,25 @@ module.exports.createOrder = async (userId, address, total, items) => {
     });
 };
 
+module.exports.fetchOrdersByUserId = async (userId) => {
+    return await Order.findMany({
+        where: {
+            userId: userId
+        }
+    });
+};
+
+module.exports.fetchOrderById = async (orderId) => {
+    return await Order.findUnique({
+        where: {
+            id: orderId
+        },
+        include: {
+            paymentDetail: true
+        }
+    });
+};
+
 module.exports.fetchOrderForPayment = async (orderId) => {
     return await Order.findUnique({
         where: {
@@ -72,6 +91,14 @@ module.exports.updateOrderWithPaymentAndTrack
                     address: address
                 }
             }
+        }
+    });
+};
+
+module.exports.deleteOrderById = async (orderId) => {
+    return await Order.delete({
+        where: {
+            id: orderId
         }
     });
 };

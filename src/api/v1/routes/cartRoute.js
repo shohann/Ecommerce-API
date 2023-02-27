@@ -11,7 +11,6 @@ const { checkProductAvailablity,
         checkCartItemAvailablity 
       } = require('../middlewares/handleCart');
 
-// onlu auth user can make an order, auth user has cart
 router.route('/')
       .get(authorizeAccess, getCart)
       .delete(authorizeAccess, removeCart);

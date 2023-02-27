@@ -18,6 +18,7 @@ const cartRouter = require('./api/v1/routes/cartRoute');
 const orderRouter = require('./api/v1/routes/orderRoute');
 const paymentRouter = require('./api/v1/routes/paymentRoute');
 const reviewRouter = require('./api/v1/routes/reviewRoute');
+const trackRouter = require('./api/v1/routes/trackRoute');
 
 app.use(express.static('public'));
 app.use(express.json()); 
@@ -31,6 +32,7 @@ app.use('/api/v1/carts', cartRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/payments', paymentRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/tracks', trackRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
 
 app.all('*', handleUnknownRoute);

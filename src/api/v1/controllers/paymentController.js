@@ -1,5 +1,6 @@
 const { makePayment } = require('../utils/stripePayment');
 const { updateOrderWithPaymentAndTrack} = require('../services/orderService');
+const { fetchPaymentByOrderId } = require('../services/paymentDetailService');
 const { ApplicationError, BadRequest } = require('../utils/appErrors');
 
 module.exports.setPayment = async (req, res, next) => {
@@ -35,8 +36,6 @@ module.exports.setPayment = async (req, res, next) => {
     }
 };
 
-
-
 // {
 //     "number": "4242424242424242",
 //     "exp_month": 8,
@@ -44,3 +43,20 @@ module.exports.setPayment = async (req, res, next) => {
 //     "cvc": "314",
 //     "currency": "usd"
 // }
+
+module.exports.getPayment = async (req, res, next) => {
+    try {
+        const orderId = req.params.orderId;
+        const payment = await fetchPaymentByOrderId(orderId);
+
+        res.status(200)
+           .json({
+                success: true,
+                message: payment
+            })
+        
+    } catch (error) {
+        next(error)
+    }
+};
+

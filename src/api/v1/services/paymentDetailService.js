@@ -1,4 +1,12 @@
 const { PaymentDetail } = require('../models/DBInit')
 
-// get details
+module.exports.fetchPaymentByOrderId = async (orderId) => {
+    return await PaymentDetail.findUnique({
+        where: {
+            orderId: orderId
+        }
+    });
+};
+
+
 

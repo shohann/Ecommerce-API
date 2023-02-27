@@ -68,7 +68,7 @@ model Reviews {
 model Order {
   id            String @default(uuid()) @unique @id
   userId        String 
-  user          User  @relation(fields: [userId], references: [id])
+  user          User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderDetail   Order_detail[]
   paymentDetail Payment_detail? 
   trackOrder    Track_order?
@@ -91,7 +91,7 @@ model Payment_detail {
 model Order_detail {
   id            String @default(uuid()) @unique @id
   orderId       String
-  order         Order @relation(fields: [orderId], references: [id])
+  order         Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId     String 
   product       Product  @relation(fields: [productId], references: [id])
   subTotal      Int

@@ -1,11 +1,17 @@
 const router = require('express').Router();
-const { setOrder } = require('../controllers/orderController');
+const { setOrder,
+        getOrder,
+        getOrders,
+        removeOrder
+      } = require('../controllers/orderController');
 const { authorizeAccess } = require('../middlewares/handleCurrentUser');
 
 router.route('/')
+      .get(authorizeAccess, getOrders)
       .post(authorizeAccess, setOrder);
 
+router.route('/:orderId')
+      .get(authorizeAccess, getOrder)
+      .delete(authorizeAccess, removeOrder)
+      
 module.exports = router;
-
-// get order
-// delete order (unpaid)

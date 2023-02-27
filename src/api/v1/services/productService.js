@@ -1,5 +1,5 @@
 const { Product } = require('../models/DBInit');
-const { BadRequest } = require('../utils/appErrors')
+// const { BadRequest } = require('../utils/appErrors');
 
 module.exports.createProduct = async (product) => {
     return await Product.create({
@@ -119,12 +119,10 @@ module.exports.updateProductStockForOrder =  async (item) => {
         // return validity;  
 };
 
-// For product stock updation by admin at any time
 module.exports.updateProductStock = async (productId, stock) => {
     return await Product.update({
         where: {
             id: productId
-            //
         },
         data: {
             stock: {

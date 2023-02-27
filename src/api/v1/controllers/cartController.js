@@ -72,7 +72,6 @@ module.exports.removeCartItemDec = async (req, res, next) => {
     }
 };
 
-// remove cart item and quantity
 module.exports.removeCartItem = async (req, res, next) => {
     try {
         const userId = req.user.id
@@ -95,7 +94,6 @@ module.exports.removeCartItem = async (req, res, next) => {
     }
 };
 
-// remove entire cart with all its items
 module.exports.removeCart = async (req, res, next) => {
     try {
         const userId = req.user.id;

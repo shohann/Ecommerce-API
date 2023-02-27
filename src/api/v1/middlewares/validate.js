@@ -1,12 +1,11 @@
-const { 
-        userSignUpValidation, 
+const { userSignUpValidation, 
         userValidation,
         userEmailValidation
       } = require('../validations/userValidation');
 const { profileValidation,
         profileUpdationValidation
       } = require('../validations/profileValidation');
-const {  productValidation } = require('../validations/productValidation');
+const { productValidation } = require('../validations/productValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
 const { reviewValidation } = require('../validations/reviewValidation');
 const { trackValidation } = require('../validations/trackValidation');

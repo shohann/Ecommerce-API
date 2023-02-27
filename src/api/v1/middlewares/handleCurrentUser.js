@@ -2,9 +2,8 @@ const { decodeAccessToken,
         decodeRefreshToken, 
         getTokenFromTokenHeader 
       } = require('../utils/jwt');
-// const { getUserRefreshToken } = require('../cache/userCache');
 const { getUserRefreshToken } = require('../services/userService');
-const { BadRequest, Forbidden, Unauthorized } = require('../utils/appErrors')
+const { BadRequest, Forbidden, Unauthorized } = require('../utils/appErrors');
 
 module.exports.authorizeAccess = (req, res, next) => {
     try {
@@ -31,7 +30,6 @@ module.exports.authorizeRefresh = async (req, res, next) => {
         const tokenHeader = req.header('Authorization');
         const token = getTokenFromTokenHeader(tokenHeader);
         const decoded = decodeRefreshToken(token);
-
         const tokenCache = await getUserRefreshToken(decoded.email);
 
         if (tokenCache === token) {
@@ -63,7 +61,7 @@ module.exports.authorizeAdmin = (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
 
 module.exports.authorizeEmployee = (req, res, next) => {
     try {
@@ -75,4 +73,4 @@ module.exports.authorizeEmployee = (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};

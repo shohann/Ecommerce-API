@@ -7,9 +7,12 @@ const { checkTrackStatus } = require('../middlewares/checkTrackStatus');
 const { getTrack, modifyTrack } = require('../controllers/trackController');
 
 router.route('/:orderId')
-      .get(authorizeAccess, getTrack)
-      .patch(authorizeAccess, validateTrack, checkTrackStatus, modifyTrack)
-
+      .get(authorizeAccess, 
+           getTrack)
+      .patch(authorizeAccess, 
+            authorizeEmployee,
+            validateTrack, 
+            checkTrackStatus, 
+            modifyTrack)
 
 module.exports = router;
-// otp order confirm , emloyee

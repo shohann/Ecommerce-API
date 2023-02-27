@@ -39,5 +39,5 @@ module.exports.updateReviewById = async (reviewId, comment, rating) => {
             comment: comment,
             rating: rating
         }
-    })
-}
+    });
+};

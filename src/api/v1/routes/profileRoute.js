@@ -12,6 +12,6 @@ const { authorizeAccess } = require('../middlewares/handleCurrentUser');
 router.route('/')
       .post(authorizeAccess, validateProfile, setProfile)
       .get(authorizeAccess, getProfile)
-      .put(authorizeAccess, validateProfileUpdation, modifyProfile) // validatios
+      .put(authorizeAccess, validateProfileUpdation, modifyProfile)
 
 module.exports = router;

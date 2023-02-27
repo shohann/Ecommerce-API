@@ -149,6 +149,24 @@ module.exports.validateProduct = (req, res, next) => {
     }
 }
 
+module.exports.validateAddStock = (req, res, next) => {
+    try {
+        const { stock } = req.body
+
+        const { error } = categoryValidation({
+            stock: stock
+        });
+    
+        if (error) {
+            throw new BadRequest(error.message);
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports.validateReview = (req, res, next) => {
     try {
         const { comment, rating } = req.body;

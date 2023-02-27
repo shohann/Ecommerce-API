@@ -10,3 +10,10 @@ module.exports.productValidation = product => {
     });
     return schema.validate(product,  {  abortEarly: false });
 };
+
+module.exports.addStockValidation = product => {
+    const schema = Joi.object({
+        stock: Joi.number().min(1).required()
+    });
+    return schema.validate(product,  {  abortEarly: false });
+};

@@ -1,7 +1,8 @@
 const { createProduct,
         fetchProduct,
         fetchProductSearchResults,
-        fetchProductsWithPagination
+        fetchProductsWithPagination,
+        updateProductStock
       } = require('../services/productService');
 const { NotFound } = require('../utils/appErrors');
 
@@ -75,15 +76,24 @@ module.exports.setProduct = async (req, res, next) => {
 
 module.exports.addProductStock = async (req, res, next) => {
     try {
-        
+        const productId = req.params.productId;
+        const stock = req.body.stock;
+        const updatedProduct = await updateProductStock(productId, stock);
+
+        res.status(200).json({
+            success: true,
+            message: updatedProduct
+        })
     } catch (error) {
-        next(error)
+        if (error.code === 'P2025') {
+            next(new NotFound('Product not found'));
+        } else {
+            next(error);
+        }
     }
-}
+};
 
-// add more stock -> updateProduct Stock
 
-// get in stock products
 
 
 

@@ -8,7 +8,8 @@ const { profileValidation,
       } = require('../validations/profileValidation');
 const {  productValidation } = require('../validations/productValidation');
 const { categoryValidation } = require('../validations/categoryValidation');
-const { reviewValidation } = require('../validations/reviewValidation')
+const { reviewValidation } = require('../validations/reviewValidation');
+const { trackValidation } = require('../validations/trackValidation');
 const { BadRequest } = require('../utils/appErrors');
 
 module.exports.validateUserSignUp = (req, res, next) => {
@@ -165,5 +166,23 @@ module.exports.validateReview = (req, res, next) => {
         }
     } catch (error) {
         next(error)
+    }
+};
+
+module.exports.validateTrack = (req, res, next) => {
+    try {
+        const { status } = req.body
+
+        const { error } = trackValidation({
+            status: status
+        });
+    
+        if (error) {
+            throw new BadRequest(error.message);
+        } else {
+            next();
+        }
+    } catch (error) {
+        next(error);
     }
 };

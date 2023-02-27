@@ -48,4 +48,5 @@ module.exports.getStripeKey = () => config.get('stripeKey');
 // Multer
 module.exports.getFileMaxSize = () => config.get('fileMaxSize');
 
-
+// Order Track Status
+module.exports.getOrderTrackStatus = () => config.get('orderTrackStatus');

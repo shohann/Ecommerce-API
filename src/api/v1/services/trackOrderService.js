@@ -9,4 +9,13 @@ module.exports.fetchTrackByOrderId = async (orderId) => {
     });
 };
 
-// update
+module.exports.updateTrackStatusByOrderId = async (orderId, status) => {
+    return await TrackOrder.update({
+        where: {
+            orderId: orderId
+        },
+        data: {
+            status: status
+        }
+    });
+};

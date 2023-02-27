@@ -26,6 +26,12 @@ module.exports = {
     nodemailerAuthType: 'OAuth2',
 
     // Multer
-    fileMaxSize: 2 * 1024 * 1024
-
+    fileMaxSize: 2 * 1024 * 1024,
+    
+    //Track Status
+    orderTrackStatus: {
+        preparing: 'PREPARING',
+        shipped: 'SHIPPED',
+        deliverd: 'DELIVERD'
+    }
 };

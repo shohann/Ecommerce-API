@@ -1,4 +1,6 @@
-const { fetchTrackByOrderId } = require('../services/trackOrderService');
+const { fetchTrackByOrderId,
+        updateTrackStatusByOrderId
+      } = require('../services/trackOrderService');
 const { NotFound } = require('../utils/appErrors');
 
 module.exports.getTrack = async (req, res, next) => {
@@ -19,10 +21,12 @@ module.exports.getTrack = async (req, res, next) => {
 module.exports.modifyTrack = async (req, res, next) => {
     try {
         const orderId = req.params.orderId;
+        const status = req.body.status;
+        const updatedTrack = await updateTrackStatusByOrderId(orderId, status);
 
         res.status(200).json({
             success: true,
-            message: 'Track update'
+            message: updatedTrack
         });
     } catch (error) {
         next(error)

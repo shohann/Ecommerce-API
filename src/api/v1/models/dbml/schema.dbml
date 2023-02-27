@@ -1,0 +1,131 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  password String [not null]
+  role Role [not null, default: 'USER']
+  profile Profile
+  orders Order [not null]
+  payment Payment_detail [not null]
+  reviews Reviews [not null]
+}
+
+Table Profile {
+  id String [pk]
+  phone String [unique, not null]
+  address String [not null]
+  user User [not null]
+  userId String [unique, not null]
+}
+
+Table Category {
+  id String [pk]
+  categoryName String [unique, not null]
+  product Product [not null]
+}
+
+Table Product {
+  id String [pk]
+  name String [not null]
+  stock Int [not null]
+  price Int [not null]
+  image String
+  desc String [not null]
+  cloudId String
+  category Category [not null]
+  categoryId String [not null]
+  orderDetail Order_detail [not null]
+  reviews Reviews [not null]
+}
+
+Table Reviews {
+  id String [pk]
+  comment String
+  rating Int [not null]
+  userId String [not null]
+  user User [not null]
+  productId String [not null]
+  product Product [not null]
+
+  indexes {
+    (userId, productId) [unique]
+  }
+}
+
+Table Order {
+  id String [pk]
+  userId String [not null]
+  user User [not null]
+  orderDetail Order_detail [not null]
+  paymentDetail Payment_detail
+  trackOrder Track_order
+  address String [not null]
+  total Int [not null]
+  time DateTime [default: `now()`, not null]
+}
+
+Table Payment_detail {
+  id String [pk]
+  amount Int [not null]
+  currency String [not null]
+  time DateTime [default: `now()`, not null]
+  userId String [not null]
+  user User [not null]
+  orderId String [unique, not null]
+  order Order [not null]
+}
+
+Table Order_detail {
+  id String [pk]
+  orderId String [not null]
+  order Order [not null]
+  productId String [not null]
+  product Product [not null]
+  subTotal Int [not null]
+  quantity Int [not null]
+  price Int [not null]
+}
+
+Table Track_order {
+  id String [pk]
+  orderId String [unique, not null]
+  order Order [not null]
+  address String [not null]
+  status Status [not null, default: 'PREPARING']
+}
+
+Enum Role {
+  USER
+  ADMIN
+  EMPLOYEE
+}
+
+Enum Status {
+  PREPARING
+  SHIPPED
+  DELIVERD
+}
+
+Ref: Profile.userId - User.id
+
+Ref: Product.categoryId > Category.id
+
+Ref: Reviews.userId > User.id
+
+Ref: Reviews.productId > Product.id
+
+Ref: Order.userId > User.id [delete: Cascade]
+
+Ref: Payment_detail.userId > User.id
+
+Ref: Payment_detail.orderId - Order.id
+
+Ref: Order_detail.orderId > Order.id [delete: Cascade]
+
+Ref: Order_detail.productId > Product.id
+
+Ref: Track_order.orderId - Order.id

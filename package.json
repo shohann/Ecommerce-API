@@ -28,7 +28,8 @@
     "swagger-ui-express": "^4.6.1"
   },
   "devDependencies": {
-    "prisma": "^4.10.1"
+    "prisma": "^4.10.1",
+    "prisma-dbml-generator": "^0.10.0"
   },
   "prisma": {
     "schema": "./src/api/v1/models/schema.prisma"

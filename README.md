@@ -14,6 +14,7 @@ A REST API for online e-commerce system
 - File upload
 - Custom Error Handling
 - Full Text Search
+- Database transactions 
 - Server Side pagination 
 - Server side schema validation.
 - API Rate Limiting

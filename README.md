@@ -4,13 +4,15 @@ A REST API for online e-commerce system
 
 ## Features:
 
-- Authentication
+- Token based Authentication and  Authorization
+- Scalable Shopping cart using redis
+- Refresh tokens for preventing unauthorized access by blocking compromised or invalid tokens.
 - Products listing
 - Order placements
 - Sending Email
 - Payment
 - File upload
-- Custom Error Handle
+- Custom Error Handling
 - Full Text Search
 - Server Side pagination 
 - Server side schema validation.

@@ -20,6 +20,7 @@ A REST API for online e-commerce system
 - API Rate Limiting
 - API Caching
 - Dependency injection
+- Swagger
 
 ## Technology Stack:
 

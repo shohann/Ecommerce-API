@@ -34,7 +34,8 @@ module.exports.signUp = async (req, res, next) => {
 
         const hashedPassword = await generateHashedPassword(password); 
         const verificationToken = generateVerificationToken(email);
-        const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
+        // const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
+        const link = `https://e-commerce-api-g5ua.onrender.com/api/v1/users/verify/${verificationToken}`;
         await setUserSignUpCache(email,{ name: name, email: email, password: hashedPassword });
         await sendVerificationEmail(email, link);
 
@@ -59,7 +60,6 @@ module.exports.verifyEmail = async (req, res, next) => {
 
         const user = await createUser(userCache.name, userCache.email, userCache.password);
         await deleteUserSignUpCache(email);
-
 
         const accessToken = generateAccessToken(user.email, user.id, user.role);
         const refreshToken = generateRefreshToken(user.email, user.id, user.role);
@@ -86,7 +86,8 @@ module.exports.resendVerificationEmail = async (req, res, next) => {
         }
         
         const verificationToken = generateVerificationToken(email);
-        const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
+        // const link = `localhost:3001/api/v1/users/verify/${verificationToken}`;
+        const link = `https://e-commerce-api-g5ua.onrender.com/api/v1/users/verify/${verificationToken}`;
         await setUserSignUpCache(email, userCache);
         await sendVerificationEmail(email, link);
 
@@ -166,7 +167,8 @@ module.exports.forgetPassword = async (req, res, next) => {
         if (!user) throw new Unauthorized('There is no user with this email')
 
         const token = generatePasswordResetToken(email, user.password);
-        const resetLink = `localhost:3001/api/v1/users/reset/${user.id}/${token}`;
+        // const resetLink = `localhost:3001/api/v1/users/reset/${user.id}/${token}`;
+        const resetLink = `https://e-commerce-api-g5ua.onrender.com/api/v1/users/reset/${user.id}/${token}`;
 
         await sendVerificationEmail(email, resetLink);
 
@@ -191,7 +193,8 @@ module.exports.changePassword = async (req, res, next) => {
         }
         
         const token = generatePasswordResetToken(email, user.password);
-        const resetLink = `localhost:3001/api/v1/users/reset/${user.id}/${token}`;
+        // const resetLink = `localhost:3001/api/v1/users/reset/${user.id}/${token}`;
+        const resetLink = `https://e-commerce-api-g5ua.onrender.com/api/v1/users/reset/${user.id}/${token}`;
 
         await sendVerificationEmail(email, resetLink);
 

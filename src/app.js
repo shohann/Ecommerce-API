@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
 const port = require('./api/v1/utils/appConfigs').getPort();
@@ -20,6 +22,8 @@ const paymentRouter = require('./api/v1/routes/paymentRoute');
 const reviewRouter = require('./api/v1/routes/reviewRoute');
 const trackRouter = require('./api/v1/routes/trackRoute');
 
+app.use(cors());
+app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));

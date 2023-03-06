@@ -9,6 +9,7 @@ module.exports.getPort = () => config.get('port');
 // Redis
 module.exports.getRedisHost = () => config.get('redisHost');
 module.exports.getRedisPort = () => config.get('redisPort');
+module.exports.getRedisUrl = () => config.get('redisUrl');
 module.exports.getVerifyEmailEX = () => config.get('verifyEmailEX');
 module.exports.getRefreshTokenCacheEX = () => config.get('refreshTokenCacheEX');
 module.exports.getCartCacheEx = () => config.get('cartCacheEx');

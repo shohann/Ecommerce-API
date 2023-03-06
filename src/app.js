@@ -1,9 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const rateLimiter = require('express-rate-limit');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
-const port = require('./api/v1/utils/appConfigs').getPort();
+const { getPort, 
+        getWindow, 
+        getMaxRequest,
+        getRateLimitMessage
+       } = require('./api/v1/utils/appConfigs');
+const port = getPort();
+const windowMs = getWindow();
+const max = getMaxRequest();
+const message = getRateLimitMessage();
 
 const { apiDocumentation } = require('./swagger/apiDocs')
 const { cacheClient } = require('./api/v1/cache/cacheDBInit');
@@ -22,6 +31,7 @@ const paymentRouter = require('./api/v1/routes/paymentRoute');
 const reviewRouter = require('./api/v1/routes/reviewRoute');
 const trackRouter = require('./api/v1/routes/trackRoute');
 
+app.use(rateLimiter({ windowMs, max, message }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static('public'));

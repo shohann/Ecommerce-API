@@ -27,6 +27,11 @@ module.exports = {
 
     // Multer
     fileMaxSize: 2 * 1024 * 1024,
+
+    // Rate Limiter
+    window: 24 * 60 * 60 * 1000, // 24 hrs in milliseconds
+    maxRequest: 500, // Limit each IP to 100 requests per `window`
+    rateLimitMessage: 'You have exceeded the 500 requests in 24 hrs limit!',
     
     //Track Status
     orderTrackStatus: {

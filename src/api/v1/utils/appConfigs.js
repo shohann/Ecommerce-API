@@ -48,5 +48,10 @@ module.exports.getStripeKey = () => config.get('stripeKey');
 // Multer
 module.exports.getFileMaxSize = () => config.get('fileMaxSize');
 
+// Rate Limiter
+module.exports.getWindow = () => config.get('window');
+module.exports.getMaxRequest = () => config.get('maxRequest');
+module.exports.getRateLimitMessage = () => config.get('rateLimitMessage');
+
 // Order Track Status
 module.exports.getOrderTrackStatus = () => config.get('orderTrackStatus');

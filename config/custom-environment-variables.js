@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
+    // REDIS
+    redisUrl: 'REDIS_URL',
     // JWT
     accessTokenSecret: 'ACCESS_TOKEN_SECRET',
     refreshTokenSecret: 'REFRESH_TOKEN_SECRET',

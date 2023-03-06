@@ -15,7 +15,7 @@ module.exports = {
     // Redis
     redisPort:6379,
     redisHost: '127.0.0.1',
-    redisUrl: 'rediss://red-ccjfg1hgp3jn57uv7630:FQ9XxFHuCe4aNIW4qJxBMLXJMJIVqJKv@frankfurt-redis.render.com:6379',
+    redisUrl: 'rediss://red-cg2rl082qv24hdmfkv2g:iD3RSuG93eSy899d2kMB5vYe00ph3Uma@frankfurt-redis.render.com:6379',
     verifyEmailEX : 300,
     refreshTokenCacheEX: 1000,
     cartCacheEx: 2000,

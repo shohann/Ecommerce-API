@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.11.0",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.33.0",
     "config": "^3.3.9",
@@ -30,7 +30,7 @@
     "swagger-ui-express": "^4.6.1"
   },
   "devDependencies": {
-    "prisma": "^4.10.1",
+    "prisma": "^4.11.0",
     "prisma-dbml-generator": "^0.10.0"
   },
   "prisma": {

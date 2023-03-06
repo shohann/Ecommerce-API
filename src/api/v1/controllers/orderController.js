@@ -9,7 +9,6 @@ const { createOrder,
       } = require('../services/orderService');
 const { BadRequest, NotFound } = require('../utils/appErrors');
 
-// 1 stock hole ki hoy -> stock finished
 module.exports.setOrder = async (req, res, next) => {
     try {
         const userId = req.user.id;
@@ -78,4 +77,4 @@ module.exports.removeOrder = async (req, res, next) => {
         console.log(error);
         next(error)
     }
-}
+};
